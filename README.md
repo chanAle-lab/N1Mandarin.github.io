@@ -3,7 +3,7 @@ A teaching resource designed for the Best Mandarin Class.
 
 Printable Mandarin practice papers with built-in answer keys.
 
-Live site: https://chanale-lab.github.io/N1Mandarin.github.io-/
+Live site: https://chanale-lab.github.io/N1Mandarin.github.io/ (after Pages is enabled)
 
 ## Papers
 | # | Paper | Level | Skill |
