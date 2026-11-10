@@ -924,5 +924,267 @@ window.PAPERS = [
         ]
       }
     ]
+  },
+  {
+    id: "ba",
+    no: "21",
+    title: "The 把 Sentence",
+    zh: "“把”字句",
+    level: "HSK 3",
+    skill: "Grammar",
+    minutes: 25,
+    summary: "Move the object before the verb with 把 to say what you did to something, and avoid the four common 把 mistakes.",
+    sections: [
+      {
+        type: "translate",
+        title: "Rewrite with 把",
+        instructions: "Pattern: subject + 把 + object + verb + something else (了, a result or a place).",
+        items: [
+          { q: "我喝了那杯咖啡。", a: "我把那杯咖啡喝了。" },
+          { q: "我做完了作业。", a: "我把作业做完了。" },
+          { q: "妈妈洗干净了衣服。", a: "妈妈把衣服洗干净了。" },
+          { q: "你关一下门。", a: "你把门关一下。" },
+          { q: "他放了书在桌子上。 (correct it with 把)", a: "他把书放在桌子上了。" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Find the mistake",
+        instructions: "Each sentence has one mistake. Write the correct sentence.",
+        items: [
+          { q: "我把书看。", a: "我把书看完了。 (the verb needs something after it)" },
+          { q: "他把一本书放在桌子上。", a: "他把那本书放在桌子上。 (the object must be specific)" },
+          { q: "我把作业没做完。", a: "我没把作业做完。 (没 / 不 go before 把)" },
+          { q: "我把这个问题懂了。", a: "我懂了这个问题。 (懂 can't be used with 把)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Use 把 in each answer.",
+        items: [
+          { q: "Please put the bag on the chair.", a: "请把包放在椅子上。" },
+          { q: "I lost my passport.", a: "我把护照丢了。" },
+          { q: "Have you finished your homework?", a: "你把作业做完了吗？" },
+          { q: "Take the umbrella with you.", a: "把伞带上。" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "result-complements",
+    no: "22",
+    title: "Result Complements",
+    zh: "结果补语",
+    level: "HSK 3",
+    skill: "Grammar",
+    minutes: 20,
+    summary: "Add 完, 好, 到, 懂, 见, 错, 干净 and 清楚 after a verb to show the result, and make them negative with 没.",
+    sections: [
+      {
+        type: "fill",
+        title: "Add the result",
+        instructions: "Fill each gap with a word from the box. Each word is used once.",
+        bank: ["完", "好", "到", "懂", "见", "错", "干净", "清楚"],
+        items: [
+          { zh: "我已经吃___饭了。", py: "Wǒ yǐjīng chī ___ fàn le.", a: "完" },
+          { zh: "老师说的话你听___了吗？", py: "Lǎoshī shuō de huà nǐ tīng ___ le ma?", a: "懂" },
+          { zh: "我找___我的手机了。", py: "Wǒ zhǎo ___ wǒ de shǒujī le.", a: "到" },
+          { zh: "对不起，我写___了一个字。", py: "Duìbuqǐ, wǒ xiě ___ le yí ge zì.", a: "错" },
+          { zh: "你看___我的猫了吗？", py: "Nǐ kàn ___ wǒ de māo le ma?", a: "见" },
+          { zh: "他把房间打扫___了。", py: "Tā bǎ fángjiān dǎsǎo ___ le.", a: "干净" },
+          { zh: "你能说___一点儿吗？", py: "Nǐ néng shuō ___ yìdiǎnr ma?", a: "清楚" },
+          { zh: "饭做___了，快来吃吧！", py: "Fàn zuò ___ le, kuài lái chī ba!", a: "好" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Make it negative",
+        instructions: "Use 没 before the verb and drop 了.",
+        items: [
+          { q: "我看完了这本书。", a: "我没看完这本书。" },
+          { q: "他听懂了。", a: "他没听懂。" },
+          { q: "我买到了票。", a: "我没买到票。" },
+          { q: "她洗干净了碗。", a: "她没洗干净碗。 / 她没把碗洗干净。" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Use a result complement in each answer.",
+        items: [
+          { q: "I didn't hear clearly.", a: "我没听清楚。" },
+          { q: "Have you finished writing?", a: "你写完了吗？" },
+          { q: "I bought the wrong ticket.", a: "我买错票了。" },
+          { q: "Did you understand?", a: "你听懂了吗？ / 你看懂了吗？" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "connectors",
+    no: "23",
+    title: "Linking Ideas",
+    zh: "关联词",
+    level: "HSK 3",
+    skill: "Grammar",
+    minutes: 25,
+    summary: "Join sentences with 虽然…但是, 因为…所以, 如果…就 and 一边…一边, and choose between 还是 and 或者.",
+    sections: [
+      {
+        type: "fill",
+        title: "Choose the linking words",
+        instructions: "Fill the gaps with words from the box. Some sentences need two words.",
+        bank: ["虽然", "但是", "因为", "所以", "如果", "就", "一边", "还是", "或者"],
+        items: [
+          { zh: "___天气不好，___我们还是去了公园。", py: "___ tiānqì bù hǎo, ___ wǒmen háishi qùle gōngyuán.", a: "虽然 … 但是" },
+          { zh: "___他感冒了，___今天没来上课。", py: "___ tā gǎnmào le, ___ jīntiān méi lái shàngkè.", a: "因为 … 所以" },
+          { zh: "___明天下雨，我们___不去公园了。", py: "___ míngtiān xià yǔ, wǒmen ___ bú qù gōngyuán le.", a: "如果 … 就" },
+          { zh: "他喜欢___吃饭___看电视。", py: "Tā xǐhuan ___ chī fàn ___ kàn diànshì.", a: "一边 … 一边" },
+          { zh: "你想喝茶___咖啡？", py: "Nǐ xiǎng hē chá ___ kāfēi?", a: "还是 (in questions)" },
+          { zh: "周末我去看电影___去图书馆。", py: "Zhōumò wǒ qù kàn diànyǐng ___ qù túshūguǎn.", a: "或者 (in statements)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Join the sentences",
+        instructions: "Join each pair into one sentence using the words in brackets.",
+        items: [
+          { q: "我很累。我想早点儿睡觉。(因为…所以)", a: "因为我很累，所以我想早点儿睡觉。" },
+          { q: "你有时间。我们一起去吃饭。(如果…就)", a: "如果你有时间，我们就一起去吃饭。" },
+          { q: "她听音乐。她做作业。(一边…一边)", a: "她一边听音乐，一边做作业。" },
+          { q: "中文很难。我很喜欢学。(虽然…但是)", a: "虽然中文很难，但是我很喜欢学。" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "reading-guest",
+    no: "24",
+    title: "Reading: Being a Guest",
+    zh: "阅读：去邻居家做客",
+    level: "HSK 3",
+    skill: "Reading",
+    minutes: 25,
+    summary: "A visit to the neighbours' home for dinner, with comprehension and true/false questions.",
+    sections: [
+      {
+        type: "reading",
+        title: "Read the passage",
+        instructions: "Read the text, then answer the questions in Chinese.",
+        passage: "上个周末，我的邻居王阿姨请我去她家做客。我买了一些水果送给她。王阿姨很热情，做了很多菜，她的菜又好吃又健康。吃饭的时候，她的爱人李叔叔给我讲了很多中国的文化和节日。我以前不太了解中国的节日，现在知道了很多。吃完饭，我想帮他们洗碗，可是王阿姨说：“你是客人，不用洗。”我们一直聊天，晚上九点我才回家。我打算下个月请他们来我家吃饭。",
+        pinyin: "Shàng ge zhōumò, wǒ de línjū Wáng āyí qǐng wǒ qù tā jiā zuòkè. Wǒ mǎile yìxiē shuǐguǒ sòng gěi tā. Wáng āyí hěn rèqíng, zuòle hěn duō cài, tā de cài yòu hǎochī yòu jiànkāng. Chī fàn de shíhou, tā de àiren Lǐ shūshu gěi wǒ jiǎngle hěn duō Zhōngguó de wénhuà hé jiérì. Wǒ yǐqián bú tài liǎojiě Zhōngguó de jiérì, xiànzài zhīdaole hěn duō. Chīwán fàn, wǒ xiǎng bāng tāmen xǐ wǎn, kěshì Wáng āyí shuō: “Nǐ shì kèrén, búyòng xǐ.” Wǒmen yìzhí liáotiān, wǎnshang jiǔ diǎn wǒ cái huí jiā. Wǒ dǎsuàn xià ge yuè qǐng tāmen lái wǒ jiā chī fàn.",
+        items: [
+          { q: "谁请“我”去做客？", a: "邻居王阿姨。" },
+          { q: "“我”送给王阿姨什么？", a: "一些水果。" },
+          { q: "王阿姨的菜怎么样？", a: "又好吃又健康。" },
+          { q: "李叔叔给“我”讲了什么？", a: "中国的文化和节日。" },
+          { q: "王阿姨为什么不让“我”洗碗？", a: "因为“我”是客人。" },
+          { q: "对还是错：“我”晚上八点就回家了。", a: "错 — 九点才回家。" },
+          { q: "“我”下个月打算做什么？", a: "请他们来家里吃饭。" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "weather-seasons",
+    no: "25",
+    title: "Weather & Seasons",
+    zh: "天气和季节",
+    level: "HSK 3",
+    skill: "Vocabulary",
+    minutes: 20,
+    summary: "The four seasons, weather words like 晴, 阴 and 凉快, and talking about the weather with 会 and 但是.",
+    sections: [
+      {
+        type: "match",
+        title: "Match the word to its meaning",
+        instructions: "Write the letter of the correct English meaning next to each word.",
+        items: [
+          { zh: "春天", py: "chūntiān", a: "spring" },
+          { zh: "夏天", py: "xiàtiān", a: "summer" },
+          { zh: "秋天", py: "qiūtiān", a: "autumn" },
+          { zh: "冬天", py: "dōngtiān", a: "winter" },
+          { zh: "季节", py: "jìjié", a: "season" },
+          { zh: "凉快", py: "liángkuai", a: "pleasantly cool" },
+          { zh: "晴", py: "qíng", a: "sunny, clear" },
+          { zh: "伞", py: "sǎn", a: "umbrella" }
+        ]
+      },
+      {
+        type: "fill",
+        title: "Talk about the weather",
+        instructions: "Fill the gaps with words from the box. One sentence needs two words.",
+        bank: ["季节", "冷", "热", "凉快", "伞", "晴", "下雨"],
+        items: [
+          { zh: "一年有四个___。", py: "Yì nián yǒu sì ge ___.", a: "季节" },
+          { zh: "北京的冬天很___。", py: "Běijīng de dōngtiān hěn ___.", a: "冷" },
+          { zh: "夏天太___了，我不想出去。", py: "Xiàtiān tài ___ le, wǒ bù xiǎng chūqu.", a: "热" },
+          { zh: "秋天不冷也不热，很___。", py: "Qiūtiān bù lěng yě bú rè, hěn ___.", a: "凉快" },
+          { zh: "外边在___，别忘了带___。", py: "Wàibian zài ___, bié wàngle dài ___.", a: "下雨 … 伞" },
+          { zh: "明天是___天，我们去公园吧。", py: "Míngtiān shì ___ tiān, wǒmen qù gōngyuán ba.", a: "晴" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Write your answer in characters.",
+        items: [
+          { q: "Which season do you like best?", a: "你最喜欢哪个季节？" },
+          { q: "It's sunny today, but it will rain tomorrow.", a: "今天是晴天，但是明天会下雨。" },
+          { q: "In summer I often go swimming.", a: "夏天我常常去游泳。" },
+          { q: "What's the weather like in your city in winter?", a: "你们城市的冬天天气怎么样？" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "characters-hsk3",
+    no: "26",
+    title: "HSK 3 Characters",
+    zh: "三级汉字",
+    level: "HSK 3",
+    skill: "Writing",
+    minutes: 25,
+    summary: "Trace and copy ten HSK 3 characters: the four directions 东南西北 and nature words like 风, 河, 海 and 树.",
+    sections: [
+      {
+        type: "grid",
+        title: "Trace, then write",
+        instructions: "Trace the grey characters, then write the character on your own in the empty boxes. Watch the stroke order.",
+        items: [
+          { zh: "东", py: "dōng", en: "east", strokes: 5 },
+          { zh: "南", py: "nán", en: "south", strokes: 9 },
+          { zh: "西", py: "xī", en: "west", strokes: 6 },
+          { zh: "北", py: "běi", en: "north", strokes: 5 },
+          { zh: "风", py: "fēng", en: "wind", strokes: 4 },
+          { zh: "冰", py: "bīng", en: "ice", strokes: 6 },
+          { zh: "河", py: "hé", en: "river", strokes: 8 },
+          { zh: "海", py: "hǎi", en: "sea", strokes: 10 },
+          { zh: "树", py: "shù", en: "tree", strokes: 9 },
+          { zh: "草", py: "cǎo", en: "grass", strokes: 9 }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Spot the radical",
+        instructions: "Which characters above have the water radical 氵? Which one has the grass radical 艹?",
+        items: [
+          { q: "water 氵", a: "河, 海 (冰 has 冫, the ice radical)" },
+          { q: "grass 艹", a: "草 (and 茶, 菜 from earlier papers)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Build a word",
+        instructions: "Write the two-character word using a character from above.",
+        items: [
+          { q: "thing (? + 西)", a: "东西" },
+          { q: "the south (? + 方)", a: "南方" },
+          { q: "ice water (? + 水)", a: "冰水" },
+          { q: "Beijing (? + 京)", a: "北京" }
+        ]
+      }
+    ]
   }
 ];

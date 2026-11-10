@@ -16,15 +16,16 @@
     if (/number|classifier/.test(first)) return "Numbers & measures";
     return "Other";
   }
-  const LISTS = { 1: window.HSK1 || [], 2: window.HSK2 || [] };
+  const LISTS = { 1: window.HSK1 || [], 2: window.HSK2 || [], 3: window.HSK3 || [] };
   const WORDS = [];
   Object.entries(LISTS).forEach(([lv, list]) => list.forEach(([n, zh, py, pos, en]) =>
     WORDS.push({ id: `${lv}-${n}`, lv: +lv, n, zh, py, pos: pos || "phrase", en, group: groupOf(pos) })));
   // Level picker shared by the word list, flashcards and generator
-  const LEVELS = [["1", "HSK 1"], ["2", "HSK 2"], ["all", "HSK 1 + 2"]];
-  const levelName = (l) => (LEVELS.find((x) => x[0] === l) || LEVELS[0])[1];
+  const LEVELS = [["1", "HSK 1"], ["2", "HSK 2"], ["3", "HSK 3"], ["all", "HSK 1–3"]];
+  // "12" (HSK 1 + 2) is kept so generator links made before HSK 3 was added still rebuild the same paper
+  const levelName = (l) => l === "12" ? "HSK 1 + 2" : (LEVELS.find((x) => x[0] === l) || LEVELS[0])[1];
   let level = "1";
-  const levelWords = (l = level) => WORDS.filter((w) => l === "all" || String(w.lv) === l);
+  const levelWords = (l = level) => WORDS.filter((w) => l === "all" || (l === "12" ? w.lv <= 2 : String(w.lv) === l));
   const levelRow = (attr) => `<div class="chip-row level-row" role="group" aria-label="HSK level">
       <span class="chip-label">Level</span>
       ${LEVELS.map(([v, label]) => `<button class="chip" ${attr}="${v}" aria-pressed="${level === v}">${label}</button>`).join("")}
@@ -115,7 +116,7 @@
         <div class="hero-text">
           <p class="eyebrow">The Best Mandarin Class · 练习纸</p>
           <h1>Practice papers you can print, mark and reuse.</h1>
-          <p class="lede">Ready-made worksheets, the full HSK 1 and HSK 2 (3.0) word lists, flashcards with audio, and a generator that builds a new printable paper in one click. Every paper has an answer key and prints cleanly on A4.</p>
+          <p class="lede">Ready-made worksheets, the full HSK 1–3 (3.0) word lists, flashcards with audio, and a generator that builds a new printable paper in one click. Every paper has an answer key and prints cleanly on A4.</p>
           <div class="hero-ctas"><a class="btn" href="#library">Browse the papers</a><a class="btn ghost" href="#/generate">Generate an HSK paper</a></div>
         </div>
         <div class="hero-grid" aria-hidden="true">
@@ -124,11 +125,11 @@
       </section>
       <section class="toolkit" aria-labelledby="toolkit-h">
         <div class="toolkit-head">
-          <h2 id="toolkit-h">HSK toolkit <span class="zh">新HSK一、二级</span></h2>
-          <p>Built from the New HSK (3.0) lists: 300 Level 1 words and 200 Level 2 words.</p>
+          <h2 id="toolkit-h">HSK toolkit <span class="zh">新HSK一至三级</span></h2>
+          <p>Built from the New HSK (3.0) lists: 300 Level 1, 200 Level 2 and 500 Level 3 words.</p>
         </div>
         <div class="tools">
-          <a class="tool" href="#/words"><span class="tool-zh zh">词</span><h3>Word list</h3><p>All 500 HSK 1 and 2 words with pinyin, part of speech and meaning. Search, filter, listen, and hide columns to test yourself.</p></a>
+          <a class="tool" href="#/words"><span class="tool-zh zh">词</span><h3>Word list</h3><p>All 1,000 HSK 1–3 words with pinyin, part of speech and meaning. Search, filter, listen, and hide columns to test yourself.</p></a>
           <a class="tool" href="#/flashcards"><span class="tool-zh zh">卡</span><h3>Flashcards</h3><p>Flip through words by topic, hear each one, and sort them into "know it" and "still learning".</p></a>
           <a class="tool" href="#/pinyin"><span class="tool-zh zh">音</span><h3>Pinyin sounds</h3><p>Split any syllable into initial, final and tone. Hear every sound and find the HSK words that use it.</p></a>
           <a class="tool" href="#/generate"><span class="tool-zh zh">卷</span><h3>Paper generator</h3><p>Pick the sections and word types, and get a fresh printable paper with a matching answer key.</p></a>
@@ -263,7 +264,7 @@
     if (!list.length) return `<tr><td colspan="6" class="empty">No words match. Try a different search or group.</td></tr>`;
     return list.map((w) => `
       <tr class="${known.has(w.id) ? "is-known" : ""}">
-        <td class="num">${level === "all" ? `<span class="lv">${w.lv}</span>` : ""}${w.n}</td>
+        <td class="num">${level === "all" || level === "12" ? `<span class="lv">${w.lv}</span>` : ""}${w.n}</td>
         <td class="w-zh"><span class="zh" lang="zh-Hans">${esc(w.zh)}</span></td>
         <td class="w-py"><span class="cover">${esc(w.py)}</span></td>
         <td class="w-pos">${esc(w.pos)}</td>
@@ -277,9 +278,9 @@
     setActiveNav("words");
     main.innerHTML = `
       <section class="page-head">
-        <p class="eyebrow">New HSK 3.0 · Levels 1 and 2</p>
+        <p class="eyebrow">New HSK 3.0 · Levels 1 to 3</p>
         <h1>HSK word list <span class="zh">词汇表</span></h1>
-        <p class="lede">All 300 HSK 1 words and 200 HSK 2 words. Search by characters, pinyin (tone marks optional) or English. Hide the pinyin or meanings to test yourself, then click a covered cell to check it.</p>
+        <p class="lede">All 300 HSK 1, 200 HSK 2 and 500 HSK 3 words. Search by characters, pinyin (tone marks optional) or English. Hide the pinyin or meanings to test yourself, then click a covered cell to check it.</p>
       </section>
       <div class="words-tools no-print">
         <label class="search"><span class="sr">Search words</span><input type="search" placeholder="Search 爱, ai, love…" value="${esc(wl.q)}" data-wsearch /></label>
@@ -298,7 +299,7 @@
           <tbody data-wrows>${wordRows()}</tbody>
         </table>
       </div>
-      <p class="source">Word lists: New HSK Vocabulary Levels 1 and 2 (HSK 3.0), compiled by MandarinBean.com.</p>`;
+      <p class="source">Word lists: New HSK Vocabulary Levels 1–3 (HSK 3.0), compiled by MandarinBean.com.</p>`;
     const refresh = () => { main.querySelector("[data-wrows]").innerHTML = wordRows(); wireRows(); updateCount(); };
     const updateCount = () => {
       const pool = levelWords();
@@ -450,16 +451,16 @@
     if (p.get("n")) gen.n = Math.min(20, Math.max(4, parseInt(p.get("n"), 10) || 10));
     if (p.get("s")) gen.secs = p.get("s").split("").map((c) => ({ p: "py", e: "en", z: "zh", m: "match", g: "grid" }[c])).filter(Boolean);
     if (p.get("g") && GROUPS.includes(p.get("g"))) gen.group = p.get("g");
-    if (p.get("L")) { const L = { "1": "1", "2": "2", "12": "all" }[p.get("L")]; if (L) level = L; }
+    if (p.get("L")) { const L = { "1": "1", "2": "2", "3": "3", "12": "12", "123": "all" }[p.get("L")]; if (L) level = L; }
     if (!gen.code) gen.code = 1000 + Math.floor(Math.random() * 9000);
   }
   function genHash() {
     const s = gen.secs.map((k) => ({ py: "p", en: "e", zh: "z", match: "m", grid: "g" }[k])).join("");
-    return `#/generate?L=${level === "all" ? "12" : level}&code=${gen.code}&n=${gen.n}&s=${s}&g=${encodeURIComponent(gen.group)}`;
+    return `#/generate?L=${level === "all" ? "123" : level}&code=${gen.code}&n=${gen.n}&s=${s}&g=${encodeURIComponent(gen.group)}`;
   }
 
   function buildGenerated() {
-    const rand = rng(gen.code * 7919 + gen.n + (level === "1" ? 0 : level === "2" ? 101 : 202));
+    const rand = rng(gen.code * 7919 + gen.n + ({ "1": 0, "2": 101, "12": 202, "3": 303, all: 404 }[level] || 0));
     let pool = levelWords().filter((w) => gen.group === "All" || w.group === gen.group);
     if (gen.learning) pool = pool.filter((w) => !known.has(w.id));
     pool = shuffleWith(pool, rand);
@@ -483,7 +484,7 @@
       if (key === "grid") return { type: "grid", title: "Practise writing", instructions: "Trace the grey characters, then write the word on your own.", items: take(6, (w) => w.zh.length === 1).map((w) => ({ zh: w.zh, py: w.py, en: shortEn(w.en) })) };
     });
     return {
-      id: "gen" + level + gen.code, title: `${levelName(level)} Vocabulary Practice`, zh: { "1": "一级词汇练习", "2": "二级词汇练习", all: "一、二级词汇练习" }[level],
+      id: "gen" + level + gen.code, title: `${levelName(level)} Vocabulary Practice`, zh: { "1": "一级词汇练习", "2": "二级词汇练习", "3": "三级词汇练习", "12": "一、二级词汇练习", all: "一至三级词汇练习" }[level],
       eyebrow: `${levelName(level)} (3.0) · Paper code ${gen.code}${gen.group !== "All" ? " · " + esc(gen.group) : ""}`,
       sections
     };
@@ -496,7 +497,7 @@
     const p = buildGenerated();
     main.innerHTML = `
       <section class="page-head no-print">
-        <p class="eyebrow">New HSK 3.0 · Levels 1 and 2</p>
+        <p class="eyebrow">New HSK 3.0 · Levels 1 to 3</p>
         <h1>Paper generator <span class="zh">出卷</span></h1>
         <p class="lede">Choose what goes on the paper, then print. The paper code rebuilds exactly the same paper, so you can reprint it or share the link with another teacher.</p>
       </section>
@@ -505,7 +506,7 @@
           ${Object.entries(SECTION_TYPES).map(([k, v]) => `<label class="check"><input type="checkbox" name="sec" value="${k}" ${gen.secs.includes(k) ? "checked" : ""}/> <span><b>${v.label}</b><small>${v.hint}</small></span></label>`).join("")}
         </fieldset>
         <fieldset><legend>Words</legend>
-          <label class="field"><span>HSK level</span><select name="level">${LEVELS.map(([v, l]) => `<option value="${v}" ${v === level ? "selected" : ""}>${l}</option>`).join("")}</select></label>
+          <label class="field"><span>HSK level</span><select name="level">${(level === "12" ? [...LEVELS, ["12", "HSK 1 + 2"]] : LEVELS).map(([v, l]) => `<option value="${v}" ${v === level ? "selected" : ""}>${l}</option>`).join("")}</select></label>
           <label class="field"><span>Word type</span><select name="group">${GROUPS.map((g) => `<option ${g === gen.group ? "selected" : ""}>${g}</option>`).join("")}</select></label>
           <label class="field"><span>Questions per section</span><input type="number" name="n" min="4" max="20" value="${gen.n}"/></label>
           <label class="check"><input type="checkbox" name="learning" ${gen.learning ? "checked" : ""}/> <span><b>Only words I'm still learning</b><small>${levelWords().filter((w) => !known.has(w.id)).length} ${levelName(level)} words not yet marked as known</small></span></label>
@@ -547,13 +548,13 @@
       <h2>Marking</h2>
       <p>Switch on <b>Answer key</b> and print a second copy for yourself, or show it on the board. Matching letters are fixed, so the student copy and the key always line up.</p>
       <h2>HSK word list and flashcards</h2>
-      <p>The <a href="#/words">word list</a> has all 300 New HSK 3.0 Level 1 words and all 200 Level 2 words. Use the Level buttons to switch between HSK 1, HSK 2 or both. Hide pinyin or meanings to quiz yourself, press the speaker to hear a word, and tick words you know. <a href="#/flashcards">Flashcards</a> use the same "known" ticks, so you can focus on the words you're still learning.</p>
+      <p>The <a href="#/words">word list</a> has all 300 New HSK 3.0 Level 1 words, 200 Level 2 words and 500 Level 3 words. Use the Level buttons to switch between HSK 1, HSK 2, HSK 3 or all three. Hide pinyin or meanings to quiz yourself, press the speaker to hear a word, and tick words you know. <a href="#/flashcards">Flashcards</a> use the same "known" ticks, so you can focus on the words you're still learning.</p>
       <h2>Pinyin sounds</h2>
       <p>The <a href="#/pinyin">pinyin page</a> splits any syllable into its initial, final and tone, and explains spelling rules like y/w and the dropped dots on ü. Tap a sound in the charts to hear it and see HSK words that use it, or print the chart for the classroom wall.</p>
       <h2>Generating papers</h2>
-      <p>The <a href="#/generate">generator</a> picks words at random from the HSK 1 list, the HSK 2 list, or both. Every paper has a code: type the same code with the same settings to rebuild the identical paper, or copy the page link to share it.</p>
+      <p>The <a href="#/generate">generator</a> picks words at random from the HSK 1, HSK 2 or HSK 3 list, or all three. Every paper has a code: type the same code with the same settings to rebuild the identical paper, or copy the page link to share it.</p>
       <h2>Adding worksheets</h2>
-      <p>Worksheet content lives in <code>papers.js</code> and the vocabulary in <code>hsk1.js</code>. Copy an existing paper object, give it a new <code>id</code>, and use the section types <code>tone</code>, <code>match</code>, <code>fill</code>, <code>translate</code>, <code>grid</code> or <code>reading</code>.</p>
+      <p>Worksheet content lives in <code>papers.js</code> and the vocabulary in <code>hsk1.js</code>, <code>hsk2.js</code> and <code>hsk3.js</code>. Copy an existing paper object, give it a new <code>id</code>, and use the section types <code>tone</code>, <code>match</code>, <code>fill</code>, <code>translate</code>, <code>grid</code> or <code>reading</code>.</p>
       <p><a class="btn" href="#/">Go to the library</a></p>
     </section>`;
   }
@@ -595,9 +596,9 @@
     return w.syl.map((x) => test(x) ? `<mark>${esc(x.text)}</mark>` : esc(x.text)).join("");
   }
   function wordChips(found, test) {
-    if (!found.total) return `<p class="muted">No HSK 1 or 2 words use this sound.</p>`;
+    if (!found.total) return `<p class="muted">No HSK 1–3 words use this sound.</p>`;
     return `<ul class="py-words">${found.list.map((w) => `<li><button class="py-word" data-say="${esc(w.zh)}" title="Listen"><span class="zh" lang="zh-Hans">${esc(w.zh)}</span><span class="py">${pyMarked(w, test)}</span><span class="en">${esc(shortEn(w.en))}</span><span class="lv-tag">HSK ${w.lv}</span></button></li>`).join("")}</ul>
-      ${found.total > found.list.length ? `<p class="muted small">Showing ${found.list.length} of ${found.total} HSK 1–2 words with this sound.</p>` : ""}`;
+      ${found.total > found.list.length ? `<p class="muted small">Showing ${found.list.length} of ${found.total} HSK 1–3 words with this sound.</p>` : ""}`;
   }
 
   function splitHtml(q) {

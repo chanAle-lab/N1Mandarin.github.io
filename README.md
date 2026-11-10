@@ -28,12 +28,18 @@ Live site: https://chanale-lab.github.io/N1Mandarin.github.io/
 | 18 | HSK 2 Characters 二级汉字 | HSK 2 | Writing |
 | 19 | Initials & Finals 声母和韵母 | Beginner | Pronunciation |
 | 20 | Tricky Sounds 易混音 | HSK 1 | Pronunciation |
+| 21 | The 把 Sentence “把”字句 | HSK 3 | Grammar |
+| 22 | Result Complements 结果补语 | HSK 3 | Grammar |
+| 23 | Linking Ideas 关联词 | HSK 3 | Grammar |
+| 24 | Reading: Being a Guest 阅读：去邻居家做客 | HSK 3 | Reading |
+| 25 | Weather & Seasons 天气和季节 | HSK 3 | Vocabulary |
+| 26 | HSK 3 Characters 三级汉字 | HSK 3 | Writing |
 
 ## HSK (3.0) toolkit
-Built from the New HSK 3.0 word lists compiled by MandarinBean.com: Level 1 (300 words, `hsk1.js`) and Level 2 (200 words, `hsk2.js`). Every tool has a level switch for HSK 1, HSK 2 or both.
+Built from the New HSK 3.0 word lists compiled by MandarinBean.com: Level 1 (300 words, `hsk1.js`), Level 2 (200 words, `hsk2.js`) and Level 3 (500 words, `hsk3.js`). Every tool has a level switch for HSK 1, HSK 2, HSK 3 or all three. Generator links use `L=1`, `L=2`, `L=3` or `L=123` (older `L=12` links still work).
 - **Word list** (`#/words`): search by characters, pinyin (tone marks optional) or English; filter by word type; hide pinyin/meanings to self-test; listen to each word; mark words as known.
 - **Flashcards** (`#/flashcards`): flip cards with audio and keyboard shortcuts, choose the front side, skip known words.
-- **Pinyin sounds** (`#/pinyin`, `pinyin.js`): split any pinyin into initial + final + tone (tone marks or numbers), charts of all initials and finals grouped by mouth position with audio, the four tones, and HSK 1–2 example words for every sound. Printable chart.
+- **Pinyin sounds** (`#/pinyin`, `pinyin.js`): split any pinyin into initial + final + tone (tone marks or numbers), charts of all initials and finals grouped by mouth position with audio, the four tones, and HSK 1–3 example words for every sound. Printable chart.
 - **Paper generator** (`#/generate`): build a random printable paper (pinyin, meaning, characters, matching, 田字格 writing) with an answer key. Each paper has a code and shareable link that rebuilds the same paper.
 
 Each paper has **Pinyin** and **Answer key** toggles and a **Print / Save PDF** button that produces a clean A4 sheet.
