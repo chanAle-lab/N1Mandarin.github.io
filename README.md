@@ -15,6 +15,12 @@ Live site: https://chanale-lab.github.io/N1Mandarin.github.io/ (after Pages is e
 | 05 | Measure Words 量词 | HSK 2 | Grammar |
 | 06 | Reading: My Family 阅读：我的家 | HSK 2 | Reading |
 
+## HSK 1 (3.0) toolkit
+Built from the 300-word New HSK 3.0 Level 1 list (`hsk1.js`, compiled from MandarinBean.com):
+- **Word list** (`#/words`): search by characters, pinyin (tone marks optional) or English; filter by word type; hide pinyin/meanings to self-test; listen to each word; mark words as known.
+- **Flashcards** (`#/flashcards`): flip cards with audio and keyboard shortcuts, choose the front side, skip known words.
+- **Paper generator** (`#/generate`): build a random printable paper (pinyin, meaning, characters, matching, 田字格 writing) with an answer key. Each paper has a code and shareable link that rebuilds the same paper.
+
 Each paper has **Pinyin** and **Answer key** toggles and a **Print / Save PDF** button that produces a clean A4 sheet.
 
 ## Adding a paper
