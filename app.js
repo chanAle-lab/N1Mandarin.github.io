@@ -21,10 +21,8 @@
 
   // Known words: saved where the browser allows it, otherwise kept for this visit
   const known = new Set();
-  const store = {
-    load() { try { JSON.parse(localStorage.getItem("n1m-known") || "[]").forEach((n) => known.add(n)); } catch (e) {} },
-    save() { try { localStorage.setItem("n1m-known", JSON.stringify([...known])); } catch (e) {} }
-  };
+  const store = window.N1Store || { load() {}, save() {} }; // storage.js adds saving on the live site
+  store.known = known;
   store.load();
 
   /* ---------- Helpers ---------- */
