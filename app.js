@@ -39,8 +39,11 @@
 
   /* ---------- Helpers ---------- */
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const zh = (s) => `<span class="zh" lang="zh-Hans">${esc(s)}</span>`;
+  // Latin runs (pinyin, punctuation-free letters) inside Chinese lines use the body font so tone marks sit correctly
+  const latin = (html) => html.replace(/(?<![&#A-Za-z\u00C0-\u024F])[A-Za-z\u00C0-\u024F\u0300-\u036F\u01CD-\u01DC'’]+(?:[ .,?!\-/]+[A-Za-z\u00C0-\u024F\u0300-\u036F\u01CD-\u01DC'’]+)*/g, (m) => `<span class="lat">${m}</span>`);
+  const zh = (s) => `<span class="zh" lang="zh-Hans">${latin(esc(s))}</span>`;
   const gap = (s) => esc(s).replace(/___/g, '<span class="gap" aria-label="blank"></span>');
+  const gapZh = (s) => latin(esc(s)).replace(/___/g, '<span class="gap" aria-label="blank"></span>');
   const hasZh = (s) => /[\u4e00-\u9fff]/.test(s);
 
   function rng(seed) { // mulberry32
@@ -127,6 +130,7 @@
         <div class="tools">
           <a class="tool" href="#/words"><span class="tool-zh zh">词</span><h3>Word list</h3><p>All 500 HSK 1 and 2 words with pinyin, part of speech and meaning. Search, filter, listen, and hide columns to test yourself.</p></a>
           <a class="tool" href="#/flashcards"><span class="tool-zh zh">卡</span><h3>Flashcards</h3><p>Flip through words by topic, hear each one, and sort them into "know it" and "still learning".</p></a>
+          <a class="tool" href="#/pinyin"><span class="tool-zh zh">音</span><h3>Pinyin sounds</h3><p>Split any syllable into initial, final and tone. Hear every sound and find the HSK words that use it.</p></a>
           <a class="tool" href="#/generate"><span class="tool-zh zh">卷</span><h3>Paper generator</h3><p>Pick the sections and word types, and get a fresh printable paper with a matching answer key.</p></a>
         </div>
       </section>
@@ -157,7 +161,7 @@
   }
 
   /* ---------- Paper sheet (shared by library papers and generator) ---------- */
-  const ans = (a) => `<span class="answer">${esc(a)}</span>`;
+  const ans = (a) => `<span class="answer">${latin(esc(a))}</span>`;
   const line = `<span class="write-line"></span>`;
   const promptOf = (it) => `<span class="prompt">${hasZh(it.q) ? zh(it.q) : esc(it.q)}${it.py ? ` <span class="py">${esc(it.py)}</span>` : ""}</span>`;
 
@@ -172,7 +176,7 @@
       </div>`;
     },
     fill: (s) => `${s.bank ? `<div class="bank" aria-label="Word box">${s.bank.map(zh).join("")}</div>` : ""}
-      <ol class="items items-fill">${s.items.map((it) => `<li><span class="prompt"><span class="zh" lang="zh-Hans">${gap(it.zh)}</span> <span class="py">${gap(it.py)}</span></span>${ans(it.a)}</li>`).join("")}</ol>`,
+      <ol class="items items-fill">${s.items.map((it) => `<li><span class="prompt"><span class="zh" lang="zh-Hans">${gapZh(it.zh)}</span> <span class="py">${gap(it.py)}</span></span>${ans(it.a)}</li>`).join("")}</ol>`,
     grid: (s) => `<div class="grid-sheet">${s.items.map((it) => `
       <div class="grid-row">
         <div class="grid-info"><span class="zh">${esc(it.zh)}</span><span class="py">${esc(it.py)}</span><span class="en">${esc(it.en)}${it.strokes ? ` · ${it.strokes} strokes` : ""}</span></div>
@@ -544,12 +548,166 @@
       <p>Switch on <b>Answer key</b> and print a second copy for yourself, or show it on the board. Matching letters are fixed, so the student copy and the key always line up.</p>
       <h2>HSK word list and flashcards</h2>
       <p>The <a href="#/words">word list</a> has all 300 New HSK 3.0 Level 1 words and all 200 Level 2 words. Use the Level buttons to switch between HSK 1, HSK 2 or both. Hide pinyin or meanings to quiz yourself, press the speaker to hear a word, and tick words you know. <a href="#/flashcards">Flashcards</a> use the same "known" ticks, so you can focus on the words you're still learning.</p>
+      <h2>Pinyin sounds</h2>
+      <p>The <a href="#/pinyin">pinyin page</a> splits any syllable into its initial, final and tone, and explains spelling rules like y/w and the dropped dots on ü. Tap a sound in the charts to hear it and see HSK words that use it, or print the chart for the classroom wall.</p>
       <h2>Generating papers</h2>
       <p>The <a href="#/generate">generator</a> picks words at random from the HSK 1 list, the HSK 2 list, or both. Every paper has a code: type the same code with the same settings to rebuild the identical paper, or copy the page link to share it.</p>
       <h2>Adding worksheets</h2>
       <p>Worksheet content lives in <code>papers.js</code> and the vocabulary in <code>hsk1.js</code>. Copy an existing paper object, give it a new <code>id</code>, and use the section types <code>tone</code>, <code>match</code>, <code>fill</code>, <code>translate</code>, <code>grid</code> or <code>reading</code>.</p>
       <p><a class="btn" href="#/">Go to the library</a></p>
     </section>`;
+  }
+
+
+  /* ---------- Pinyin sounds ---------- */
+  const PY = window.PINYIN;
+  WORDS.forEach((w) => { w.syl = PY ? PY.split(w.py).filter((x) => !x.bad) : []; });
+  const pyState = { q: "nǐ hǎo", open: {} };
+  const TONE_PATHS = { 1: "M4 6 H36", 2: "M4 22 L36 6", 3: "M4 18 Q14 32 22 30 T36 10", 4: "M4 6 L36 32", 5: "" };
+  const toneSvg = (n) => `<svg class="contour" viewBox="0 0 40 38" aria-hidden="true"><line x1="2" y1="4" x2="38" y2="4"/><line x1="2" y1="34" x2="38" y2="34"/>${n === 5 ? '<circle cx="20" cy="20" r="4"/>' : `<path d="${TONE_PATHS[n]}"/>`}</svg>`;
+  const SOUND_NOTES = {
+    y: "y is a spelling letter here: the real final starts with i or ü.",
+    w: "w is a spelling letter here: the real final starts with u.",
+    "-i": "After zh, ch, sh, r, z, c and s the i is not 'ee': it is a buzzing sound made in the same mouth position.",
+    "ü-jqx": "After j, q, x and y, ü is written as u. The sound is still ü.",
+    iu: "iu is short for iou: you hear a light o in the middle.",
+    ui: "ui is short for uei: you hear a light e in the middle.",
+    un: "un is short for uen (after most initials).",
+    er: "The final r is erhua: curl the tongue at the end of the syllable."
+  };
+  function sylNotes(x) {
+    const n = [];
+    if (x.glide) n.push(SOUND_NOTES[x.glide]);
+    if (x.fin === "-i") n.push(SOUND_NOTES["-i"]);
+    if (/^[jqxy]$/.test(x.ini || x.glide) && /^ü/.test(x.fin)) n.push(SOUND_NOTES["ü-jqx"]);
+    if (x.fin === "iu" || x.fin === "ui" || x.fin === "un") n.push(SOUND_NOTES[x.fin]);
+    if (x.er) n.push(SOUND_NOTES.er);
+    return n;
+  }
+  const finLabel = (f) => (f === "-i" ? "-i (buzz)" : f === "io" ? "o" : f);
+  function wordsWith(test, max = 10) {
+    const list = WORDS.filter((w) => w.syl.some(test));
+    // favour short, single-sound words first
+    list.sort((a, b) => a.syl.length - b.syl.length || a.lv - b.lv || a.n - b.n);
+    return { total: list.length, list: list.slice(0, max) };
+  }
+  function pyMarked(w, test) {
+    return w.syl.map((x) => test(x) ? `<mark>${esc(x.text)}</mark>` : esc(x.text)).join("");
+  }
+  function wordChips(found, test) {
+    if (!found.total) return `<p class="muted">No HSK 1 or 2 words use this sound.</p>`;
+    return `<ul class="py-words">${found.list.map((w) => `<li><button class="py-word" data-say="${esc(w.zh)}" title="Listen"><span class="zh" lang="zh-Hans">${esc(w.zh)}</span><span class="py">${pyMarked(w, test)}</span><span class="en">${esc(shortEn(w.en))}</span><span class="lv-tag">HSK ${w.lv}</span></button></li>`).join("")}</ul>
+      ${found.total > found.list.length ? `<p class="muted small">Showing ${found.list.length} of ${found.total} HSK 1–2 words with this sound.</p>` : ""}`;
+  }
+
+  function splitHtml(q) {
+    const parts = PY.split(q);
+    if (!q.trim()) return `<p class="muted">Type some pinyin above.</p>`;
+    const flat = q.normalize("NFC").toLowerCase().replace(/[^a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/g, "");
+    const match = WORDS.find((w) => w.py.normalize("NFC").toLowerCase().replace(/[^a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/g, "") === flat);
+    return `${match ? `<p class="py-match">HSK ${match.lv} word: <button class="py-word inline" data-say="${esc(match.zh)}"><span class="zh" lang="zh-Hans">${esc(match.zh)}</span> <span class="en">${esc(shortEn(match.en))}</span> ${ICON_SOUND}</button></p>` : ""}
+      <div class="syl-row">${parts.map((x) => {
+        if (x.bad) return `<div class="syl bad"><p class="syl-big">${esc(x.bad)}</p><p class="muted small">Not a Mandarin syllable. Check the spelling.</p></div>`;
+        const ini = x.ini || x.glide;
+        const same = wordsWith((y) => y.base === x.base && y.tone === x.tone, 4);
+        const notes = sylNotes(x);
+        return `<div class="syl">
+          <p class="syl-big">${esc(x.text)}</p>
+          <div class="syl-parts">
+            <div class="part-box" data-g="${PY.groupOfInitial(ini)}"><span class="lbl">${x.glide ? "Spelling letter" : "Initial 声母"}</span><b>${ini ? esc(ini) : "—"}</b></div>
+            <span class="plus">+</span>
+            <div class="part-box fin" data-g="${PY.groupOfFinal(x.fin)}"><span class="lbl">Final 韵母</span><b>${esc(finLabel(x.fin))}${x.er ? " + r" : ""}</b></div>
+            <span class="plus">+</span>
+            <div class="part-box tone"><span class="lbl">Tone 声调</span><b>${toneSvg(x.tone)} ${x.tone === 5 ? "neutral" : x.tone}</b></div>
+          </div>
+          ${notes.length ? `<ul class="syl-notes">${notes.map((n) => `<li>${esc(n)}</li>`).join("")}</ul>` : ""}
+          ${same.total ? `<div class="syl-words"><span class="lbl">HSK words with ${esc(x.text)}</span>${same.list.map((w) => `<button class="py-word mini" data-say="${esc(w.zh)}"><span class="zh" lang="zh-Hans">${esc(w.zh)}</span> <span class="py">${esc(w.py)}</span></button>`).join("")}</div>` : ""}
+        </div>`;
+      }).join("")}</div>`;
+  }
+
+  function soundTable(kind, groups) {
+    return groups.map((g) => `
+      <div class="py-group" data-g="${g.key}">
+        <div class="py-group-head">
+          <h3>${esc(g.name)} <span class="zh">${esc(g.zh)}</span></h3>
+          <p>${esc(g.tip)}</p>
+        </div>
+        <div class="py-tiles">${g.items.map(([sym, ch, py, hint]) => `
+          <button class="py-tile" data-kind="${kind}" data-sym="${esc(sym)}" data-group="${g.key}" data-say="${esc(ch)}" aria-label="${esc(sym)}, as in ${esc(ch)} ${esc(py)}">
+            <span class="sym">${esc(sym)}</span>
+            <span class="ex"><span class="zh" lang="zh-Hans">${esc(ch)}</span> ${esc(py)}</span>
+            <span class="hint">${esc(hint)}</span>
+          </button>`).join("")}</div>
+        <div class="py-detail no-print" data-detail="${kind}-${g.key}" hidden></div>
+      </div>`).join("");
+  }
+
+  function renderPinyin() {
+    document.title = "Pinyin sounds — N1Mandarin";
+    setActiveNav("pinyin");
+    if (!PY) { main.innerHTML = `<p>Pinyin data failed to load.</p>`; return; }
+    main.innerHTML = `
+      <section class="page-head">
+        <p class="eyebrow">Pronunciation · 拼音</p>
+        <h1>Pinyin sounds <span class="zh">声母和韵母</span></h1>
+        <p class="lede">Every Mandarin syllable is an initial (the consonant at the start), a final (the vowel part) and a tone. Split any pinyin into its parts, then tap a sound in the charts to hear it and see HSK words that use it.</p>
+      </section>
+      <section class="py-split no-print" aria-labelledby="split-h">
+        <h2 id="split-h" class="py-h2">Split a syllable <span class="zh">拼音拆分</span></h2>
+        <label class="search"><span class="sr">Pinyin to split</span><input type="search" data-pyq value="${esc(pyState.q)}" placeholder="Type pinyin, e.g. Zhōngguó or zhong1 guo2" /></label>
+        <div class="chip-row"><span class="chip-label">Try</span>${["nǐ hǎo", "Zhōngguó", "xuéxiào", "qù", "péngyou", "zhīdào", "yīfu", "yíhuìr"].map((t) => `<button class="chip" data-try="${esc(t)}">${esc(t)}</button>`).join("")}</div>
+        <p class="muted small">Tone marks or tone numbers both work (zhong1 guo2). Type v or u: for ü.</p>
+        <div data-split>${splitHtml(pyState.q)}</div>
+      </section>
+      <section class="py-section" aria-labelledby="tones-h">
+        <h2 id="tones-h" class="py-h2">The four tones <span class="zh">四声</span></h2>
+        <div class="tone-cards">${PY.TONES.map((t) => `
+          <button class="tone-card" data-say="${esc(t.ex[0])}">
+            ${toneSvg(t.n)}
+            <span class="t-name">${esc(t.name)} <span class="zh">${esc(t.zh)}</span></span>
+            <span class="t-ex"><span class="zh" lang="zh-Hans">${esc(t.ex[0])}</span> ${esc(t.ex[1])}</span>
+            <span class="hint">${esc(t.contour)} · ${esc(t.ex[2])}</span>
+          </button>`).join("")}</div>
+      </section>
+      <section class="py-section" aria-labelledby="ini-h">
+        <div class="py-section-head">
+          <h2 id="ini-h" class="py-h2">Initials <span class="zh">声母</span></h2>
+          <button class="btn small no-print" data-print>Print chart</button>
+        </div>
+        <p class="muted">21 initials plus y and w, grouped by where they are made in the mouth. Pairs like b/p, d/t, g/k, j/q, zh/ch and z/c differ only by a puff of air: hold a tissue in front of your mouth and it should move for the second one.</p>
+        ${soundTable("ini", PY.INITIAL_GROUPS)}
+      </section>
+      <section class="py-section" aria-labelledby="fin-h">
+        <h2 id="fin-h" class="py-h2">Finals <span class="zh">韵母</span></h2>
+        <p class="muted">Finals are grouped by their first vowel. The i-, u- and ü- groups start with a quick glide before the main vowel.</p>
+        ${soundTable("fin", PY.FINAL_GROUPS)}
+      </section>
+      <section class="py-section no-print">
+        <h2 class="py-h2">Practise on paper</h2>
+        <p class="muted">Print a worksheet: <a href="#/paper/initials-finals">Initials & Finals</a> · <a href="#/paper/tricky-sounds">Tricky Sounds</a> · <a href="#/paper/tones">Pinyin & Tones</a></p>
+      </section>`;
+    wireSpeak(main);
+    const box = main.querySelector("[data-split]");
+    const input = main.querySelector("[data-pyq]");
+    const update = () => { pyState.q = input.value; box.innerHTML = splitHtml(pyState.q); wireSpeak(box); };
+    input.addEventListener("input", update);
+    main.querySelectorAll("[data-try]").forEach((b) => b.addEventListener("click", () => { input.value = b.dataset.try; update(); }));
+    main.querySelector("[data-print]").addEventListener("click", () => window.print());
+    main.querySelectorAll(".py-tile").forEach((b) => b.addEventListener("click", () => {
+      const { kind, sym, group } = b.dataset;
+      const panel = main.querySelector(`[data-detail="${kind}-${group}"]`);
+      const wasOpen = b.getAttribute("aria-pressed") === "true";
+      panel.parentElement.querySelectorAll(".py-tile").forEach((x) => x.setAttribute("aria-pressed", "false"));
+      if (wasOpen) { panel.hidden = true; return; }
+      b.setAttribute("aria-pressed", "true");
+      const test = kind === "ini" ? (x) => (x.ini || x.glide) === sym : (x) => x.fin === sym;
+      const g = (kind === "ini" ? PY.INITIAL_GROUPS : PY.FINAL_GROUPS).find((x) => x.key === group);
+      const item = g.items.find((x) => x[0] === sym);
+      panel.innerHTML = `<p class="detail-head"><b>${esc(sym)}</b> — ${esc(item[3])}. Example: <span class="zh" lang="zh-Hans">${esc(item[1])}</span> ${esc(item[2])}</p>${wordChips(wordsWith(test), test)}`;
+      panel.hidden = false;
+      wireSpeak(panel);
+    }));
   }
 
   /* ---------- Router ---------- */
@@ -566,6 +724,7 @@
     else if (path === "#/words") renderWords();
     else if (path === "#/flashcards") renderFlashcards();
     else if (path === "#/generate") renderGenerate(qs || "");
+    else if (path === "#/pinyin") renderPinyin();
     else if (path === "#/about") renderAbout();
     else renderLibrary();
     window.scrollTo(0, 0);

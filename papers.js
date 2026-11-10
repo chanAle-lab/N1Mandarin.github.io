@@ -600,5 +600,329 @@ window.PAPERS = [
         ]
       }
     ]
+  },
+  {
+    id: "de",
+    no: "15",
+    title: "Using 的",
+    zh: "结构助词“的”",
+    level: "HSK 1",
+    skill: "Grammar",
+    minutes: 20,
+    summary: "Show possession and describe things with 的, and learn when it can be left out (我妈妈, 我家).",
+    sections: [
+      {
+        type: "fill",
+        title: "的 or nothing?",
+        instructions: "Write 的 in the gap, or ✗ if it is normally left out. 的 is often dropped with close family and 家.",
+        bank: ["的", "✗"],
+        items: [
+          { zh: "这是我___书。", py: "Zhè shì wǒ ___ shū.", a: "的" },
+          { zh: "我___妈妈是医生。", py: "Wǒ ___ māma shì yīshēng.", a: "✗ (的 is possible but usually dropped)" },
+          { zh: "老师___电脑很新。", py: "Lǎoshī ___ diànnǎo hěn xīn.", a: "的" },
+          { zh: "我___家在北京。", py: "Wǒ ___ jiā zài Běijīng.", a: "✗ (我家)" },
+          { zh: "这是谁___杯子？", py: "Zhè shì shéi ___ bēizi?", a: "的" },
+          { zh: "我有一个很好___朋友。", py: "Wǒ yǒu yí ge hěn hǎo ___ péngyou.", a: "的 (很 + adjective needs 的)" },
+          { zh: "他是中国___老师。", py: "Tā shì Zhōngguó ___ lǎoshī.", a: "✗ (中国老师 = Chinese teacher)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Put the words in order",
+        instructions: "Write a correct sentence using all the words.",
+        items: [
+          { q: "的 / 这 / 我 / 是 / 手机", a: "这是我的手机。" },
+          { q: "衣服 / 漂亮 / 你 / 的 / 很", a: "你的衣服很漂亮。" },
+          { q: "是 / 那 / 的 / 本 / 书 / 老师", a: "那本书是老师的。" },
+          { q: "好吃 / 很 / 菜 / 的 / 这是", a: "这是很好吃的菜。" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Write your answer in characters.",
+        items: [
+          { q: "my teacher's book", a: "我老师的书" },
+          { q: "This is mine.", a: "这是我的。" },
+          { q: "a very big room", a: "很大的房间" },
+          { q: "Whose phone is this?", a: "这是谁的手机？" },
+          { q: "the person who is reading", a: "看书的人" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "zai",
+    no: "16",
+    title: "Three Uses of 在",
+    zh: "“在”的用法",
+    level: "HSK 1",
+    skill: "Grammar",
+    minutes: 20,
+    summary: "在 as 'to be at', 在 + place before the verb, and 在 / 正在 for actions in progress.",
+    sections: [
+      {
+        type: "translate",
+        title: "What is 在 doing?",
+        instructions: "Write A (to be at a place), B (place before the verb) or C (action in progress).",
+        items: [
+          { q: "我在家。", a: "A" },
+          { q: "我在家看书。", a: "B" },
+          { q: "他在看书。", a: "C" },
+          { q: "妈妈正在做饭。", a: "C" },
+          { q: "学校在医院旁边。", a: "A" },
+          { q: "我们在饭店吃饭。", a: "B" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Fix the word order",
+        instructions: "In Chinese the place comes before the verb. Rewrite each sentence correctly.",
+        items: [
+          { q: "我吃饭在饭店。", a: "我在饭店吃饭。" },
+          { q: "他工作在北京。", a: "他在北京工作。" },
+          { q: "她看电视在。", a: "她在看电视。" },
+          { q: "我们学习汉语在学校。", a: "我们在学校学习汉语。" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Use 在 in each answer.",
+        items: [
+          { q: "I am studying Chinese (right now).", a: "我在学汉语。 / 我正在学汉语。" },
+          { q: "Where do you work?", a: "你在哪儿工作？" },
+          { q: "My phone is on the table.", a: "我的手机在桌子上。" },
+          { q: "Dad isn't at home.", a: "爸爸不在家。" },
+          { q: "What are you doing?", a: "你在做什么？" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "hui-neng-keyi",
+    no: "17",
+    title: "Can: 会, 能 or 可以?",
+    zh: "会、能、可以",
+    level: "HSK 2",
+    skill: "Grammar",
+    minutes: 25,
+    summary: "会 for learned skills and likelihood, 能 for ability in the moment, 可以 for permission.",
+    sections: [
+      {
+        type: "match",
+        title: "Match the use",
+        instructions: "Write the letter of the best explanation next to each sentence.",
+        items: [
+          { zh: "我会游泳。", py: "Wǒ huì yóuyǒng.", a: "a skill I have learned (会)" },
+          { zh: "明天会下雨。", py: "Míngtiān huì xià yǔ.", a: "something likely to happen (会)" },
+          { zh: "我今天不能来。", py: "Wǒ jīntiān bù néng lái.", a: "not possible because of circumstances (能)" },
+          { zh: "这儿可以坐吗？", py: "Zhèr kěyǐ zuò ma?", a: "asking permission (可以)" },
+          { zh: "他一次能喝三杯咖啡。", py: "Tā yí cì néng hē sān bēi kāfēi.", a: "how much someone is able to do (能)" }
+        ]
+      },
+      {
+        type: "fill",
+        title: "Choose the word",
+        instructions: "Fill each gap with 会, 能 or 可以. Words can be used more than once.",
+        bank: ["会", "能", "可以"],
+        items: [
+          { zh: "我___说一点儿汉语。", py: "Wǒ ___ shuō yìdiǎnr Hànyǔ.", a: "会" },
+          { zh: "我妹妹三岁，还不___写字。", py: "Wǒ mèimei sān suì, hái bú ___ xiě zì.", a: "会" },
+          { zh: "老师，我___进来吗？", py: "Lǎoshī, wǒ ___ jìnlai ma?", a: "可以 (能 is also heard)" },
+          { zh: "我今天很忙，不___去看电影。", py: "Wǒ jīntiān hěn máng, bù ___ qù kàn diànyǐng.", a: "能" },
+          { zh: "你看，天阴了，下午___下雨。", py: "Nǐ kàn, tiān yīn le, xiàwǔ ___ xià yǔ.", a: "会" },
+          { zh: "你___帮我一下吗？", py: "Nǐ ___ bāng wǒ yíxià ma?", a: "能 / 可以" },
+          { zh: "他喝酒了，不___开车。", py: "Tā hē jiǔ le, bù ___ kāichē.", a: "能" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Choose 会, 能 or 可以 carefully.",
+        items: [
+          { q: "I can drive (I learned how).", a: "我会开车。" },
+          { q: "May I use your phone?", a: "我可以用你的手机吗？" },
+          { q: "Will it rain tomorrow?", a: "明天会下雨吗？" },
+          { q: "I'm ill, so I can't go to school today.", a: "我病了，今天不能去学校。" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "characters-hsk2",
+    no: "18",
+    title: "HSK 2 Characters",
+    zh: "二级汉字",
+    level: "HSK 2",
+    skill: "Writing",
+    minutes: 25,
+    summary: "Trace and copy ten HSK 2 characters, from directions like 左 and 右 to 远, 近 and 快.",
+    sections: [
+      {
+        type: "grid",
+        title: "Trace, then write",
+        instructions: "Trace the grey characters, then write the character on your own in the empty boxes. Watch the stroke order.",
+        items: [
+          { zh: "左", py: "zuǒ", en: "left", strokes: 5 },
+          { zh: "右", py: "yòu", en: "right", strokes: 5 },
+          { zh: "门", py: "mén", en: "door", strokes: 3 },
+          { zh: "飞", py: "fēi", en: "to fly", strokes: 3 },
+          { zh: "比", py: "bǐ", en: "than, to compare", strokes: 4 },
+          { zh: "长", py: "cháng", en: "long", strokes: 4 },
+          { zh: "走", py: "zǒu", en: "to walk", strokes: 7 },
+          { zh: "远", py: "yuǎn", en: "far", strokes: 7 },
+          { zh: "近", py: "jìn", en: "near", strokes: 7 },
+          { zh: "快", py: "kuài", en: "fast", strokes: 7 }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Opposites",
+        instructions: "Write the character with the opposite meaning.",
+        items: [
+          { q: "左 left ↔ ?", a: "右" },
+          { q: "远 far ↔ ?", a: "近" },
+          { q: "快 fast ↔ ?", a: "慢" },
+          { q: "长 long ↔ ?", a: "短" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Build a word",
+        instructions: "Write the two-character word using a character from above.",
+        items: [
+          { q: "aeroplane (? + 机)", a: "飞机" },
+          { q: "on the left (? + 边)", a: "左边" },
+          { q: "doorway (? + 口)", a: "门口" },
+          { q: "recently (最 + ?)", a: "最近" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "initials-finals",
+    no: "19",
+    title: "Initials & Finals",
+    zh: "声母和韵母",
+    level: "Beginner",
+    skill: "Pronunciation",
+    minutes: 20,
+    summary: "Split syllables into initial + final + tone, hear the difference a puff of air makes, and build syllables back up.",
+    sections: [
+      {
+        type: "tone",
+        title: "Split the syllable",
+        instructions: "Write the initial, the final and the tone number. Example: hǎo → h + ao, 3.",
+        items: [
+          { q: "bā 八", a: "b + a, 1" },
+          { q: "mén 门", a: "m + en, 2" },
+          { q: "gěi 给", a: "g + ei, 3" },
+          { q: "tīng 听", a: "t + ing, 1" },
+          { q: "jiā 家", a: "j + ia, 1" },
+          { q: "qù 去", a: "q + ü, 4 (written u after q)" },
+          { q: "xué 学", a: "x + üe, 2 (written ue after x)" },
+          { q: "zhōng 中", a: "zh + ong, 1" },
+          { q: "shuō 说", a: "sh + uo, 1" },
+          { q: "chī 吃", a: "ch + -i (buzz), 1" },
+          { q: "duì 对", a: "d + ui (uei), 4" },
+          { q: "yǒu 有", a: "no initial: iou (y is a spelling letter), 3" }
+        ]
+      },
+      {
+        type: "fill",
+        title: "Puff of air?",
+        instructions: "Each pair sounds alike, but the second letter has a puff of air. Write the missing initial.",
+        bank: ["b", "p", "d", "t", "g", "k", "j", "q", "zh", "ch", "z", "c"],
+        items: [
+          { zh: "爸 ___à", py: "dad — b or p?", a: "b" },
+          { zh: "跑 ___ǎo", py: "to run — b or p?", a: "p" },
+          { zh: "大 ___à", py: "big — d or t?", a: "d" },
+          { zh: "他 ___ā", py: "he — d or t?", a: "t" },
+          { zh: "哥 ___ē", py: "older brother — g or k?", a: "g" },
+          { zh: "看 ___àn", py: "to look — g or k?", a: "k" },
+          { zh: "家 ___iā", py: "home — j or q?", a: "j" },
+          { zh: "去 ___ù", py: "to go — j or q?", a: "q" },
+          { zh: "中 ___ōng", py: "middle — zh or ch?", a: "zh" },
+          { zh: "茶 ___á", py: "tea — zh or ch?", a: "ch" },
+          { zh: "在 ___ài", py: "at — z or c?", a: "z" },
+          { zh: "菜 ___ài", py: "dish — z or c?", a: "c" }
+        ]
+      },
+      {
+        type: "tone",
+        title: "Build the syllable",
+        instructions: "Join the parts and write the syllable with its tone mark. Watch the spelling rules.",
+        items: [
+          { q: "sh + i, 4", a: "shì" },
+          { q: "l + ü, 4", a: "lǜ (ü keeps its dots after l and n)" },
+          { q: "j + ü, 3", a: "jǔ (dots dropped after j)" },
+          { q: "(none) + i, 1", a: "yī" },
+          { q: "(none) + u, 3", a: "wǔ" },
+          { q: "(none) + uo, 3", a: "wǒ" },
+          { q: "(none) + ü + e, 4", a: "yuè" },
+          { q: "h + uei, 4", a: "huì (uei → ui)" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "tricky-sounds",
+    no: "20",
+    title: "Tricky Sounds",
+    zh: "易混音",
+    level: "HSK 1",
+    skill: "Pronunciation",
+    minutes: 20,
+    summary: "Curled vs flat tongue (zh/z, ch/c, sh/s), -n vs -ng, and j q x vs zh ch sh, all with HSK 1 words.",
+    sections: [
+      {
+        type: "fill",
+        title: "Curled or flat tongue?",
+        instructions: "Write the missing initial. zh, ch, sh curl the tongue back; z, c, s keep it flat behind the teeth.",
+        bank: ["zh", "z", "ch", "c", "sh", "s"],
+        items: [
+          { zh: "知道 ___īdào", py: "to know", a: "zh" },
+          { zh: "写字 xiě ___ì", py: "to write characters", a: "z" },
+          { zh: "吃饭 ___īfàn", py: "to eat a meal", a: "ch" },
+          { zh: "菜 ___ài", py: "dish", a: "c" },
+          { zh: "是 ___ì", py: "to be", a: "sh" },
+          { zh: "四 ___ì", py: "four", a: "s" },
+          { zh: "十 ___í", py: "ten", a: "sh" },
+          { zh: "坐 ___uò", py: "to sit", a: "z" }
+        ]
+      },
+      {
+        type: "fill",
+        title: "-n or -ng?",
+        instructions: "Write n or ng. For -ng, the back of the tongue closes and the mouth stays open, as in 'sing'.",
+        bank: ["n", "ng"],
+        items: [
+          { zh: "看 kà___", py: "to look", a: "n" },
+          { zh: "忙 má___", py: "busy", a: "ng" },
+          { zh: "很 hě___", py: "very", a: "n" },
+          { zh: "冷 lě___", py: "cold", a: "ng" },
+          { zh: "今天 jī___tiān", py: "today", a: "n" },
+          { zh: "北京 Běijī___", py: "Beijing", a: "ng" },
+          { zh: "饭 fà___", py: "meal", a: "n" },
+          { zh: "房间 fá___jiān", py: "room", a: "ng" }
+        ]
+      },
+      {
+        type: "tone",
+        title: "Which spelling is right?",
+        instructions: "Circle or write the correct pinyin. Remember: j, q and x are only followed by i or ü.",
+        items: [
+          { q: "学 xué or shué?", a: "xué" },
+          { q: "说 xuō or shuō?", a: "shuō" },
+          { q: "去 qù or chù?", a: "qù" },
+          { q: "吃 qī or chī?", a: "chī" },
+          { q: "家 jiā or zhiā?", a: "jiā" },
+          { q: "中 jōng or zhōng?", a: "zhōng" },
+          { q: "女 nǚ or lǚ?", a: "nǚ" },
+          { q: "绿 nǜ or lǜ?", a: "lǜ" }
+        ]
+      }
+    ]
   }
 ];
