@@ -339,3 +339,7 @@ select, input[type="number"] { font: var(--text-sm) var(--font-body); padding: v
   .words tr { break-inside: avoid; }
   .hide-py .cover, .hide-en .cover { background: none !important; color: transparent !important; border-bottom: 1px solid #999; }
 }
+
+.level-row { margin-bottom: var(--space-3); }
+.lv { display: inline-block; font-size: .7rem; line-height: 1; padding: 2px 4px; margin-right: 4px; border-radius: 3px; background: var(--color-accent-soft); color: var(--color-accent); font-weight: 700; vertical-align: 1px; }
+.words .num { white-space: nowrap; }
