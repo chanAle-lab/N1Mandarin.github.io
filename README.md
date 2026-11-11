@@ -1,11 +1,27 @@
 # N1Mandarin
-A teaching resource designed for the Best Mandarin Class.
+A free teaching and studying resource for English speakers learning Mandarin, designed for the Best Mandarin Class.
 
-Printable Mandarin practice papers with built-in answer keys.
+From English to Mandarin, one clear step at a time.
 
 Live site: https://chanale-lab.github.io/N1Mandarin.github.io/
 
+## Learning path (home page, `learn.js`)
+
+Mandarin explained from an English speaker's point of view, with tap-to-hear audio on every Chinese example:
+
+- **Word of the day**: a different HSK 1–2 word each day, split into initial, final and tone.
+- **01 Sounds English doesn't have**: tones, x/sh, q/ch, j/zh, ü, flat vs curled tongue, aspiration (b/p) and r. Each card has a mouth tip and minimal pairs, and you can switch the speech speed.
+- **02 Everyday phrase cards**: English prompt, flip for the Chinese (greetings, classroom, restaurant, shopping, travel, being polite).
+- **03 Where the grammar differs**: 10 ✗/✓ cards (time and place before the verb, no 是 with adjectives, no tenses, measure words, question order, 不/没, no plurals, 的 order, answering yes).
+- **04 Common English-speaker mistakes**: word-for-word translations fixed, with notes.
+- **05 Quick quiz**: 10 questions with explanations and a score.
+
+Each section links to the worksheets that practise it. Edit the content in `learn.js`.
+
 ## Papers
+
+The worksheet library is at `#/papers` (old `#library` links redirect there).
+
 | # | Paper | Level | Skill |
 |---|-------|-------|-------|
 | 01 | Pinyin & Tones 拼音和声调 | Beginner | Pronunciation |

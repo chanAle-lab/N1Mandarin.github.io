@@ -60,11 +60,12 @@
   const shuffled = (arr, key) => shuffleWith(arr, rng(seedOf(key)));
 
   const canSpeak = "speechSynthesis" in window;
+  let speechRate = 0.85; // Slow / Normal switch on the learning page
   function speak(text) {
     if (!canSpeak) return;
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = "zh-CN"; u.rate = 0.8;
+    u.lang = "zh-CN"; u.rate = speechRate;
     const v = speechSynthesis.getVoices().find((x) => /^zh(-|_)CN/i.test(x.lang)) || speechSynthesis.getVoices().find((x) => /^zh/i.test(x.lang));
     if (v) u.voice = v;
     speechSynthesis.speak(u);
@@ -82,6 +83,183 @@
       <span class="chip-label">${label}</span>
       ${values.map((v) => `<button class="chip" ${attr}="${esc(v)}" aria-pressed="${current === v}">${esc(v)}</button>`).join("")}
     </div>`;
+  }
+
+  /* ---------- Learn (home): a path for English speakers ---------- */
+  const L = window.LEARN || { sounds: [], phrases: {}, grammar: [], mistakes: [], quiz: [] };
+  const learnState = { topic: Object.keys(L.phrases)[0], answers: {} };
+  const paperLink = (id) => { const p = papers.find((x) => x.id === id); return p ? `<a href="#/paper/${p.id}">${p.no} ${esc(p.title)}</a>` : ""; };
+  const sayItem = (zhs, py, en) => `<button class="say" data-say="${esc(zhs)}" title="Listen"><span class="zh" lang="zh-Hans">${esc(zhs)}</span><span class="py lat">${esc(py)}</span>${en ? `<span class="en">${esc(en)}</span>` : ""}</button>`;
+  const speedRow = () => canSpeak ? `<div class="chip-row speed-row" role="group" aria-label="Speaking speed"><span class="chip-label">Speed</span>
+      ${[["0.55", "Slow"], ["0.85", "Normal"]].map(([v, t]) => `<button class="chip" data-rate="${v}" aria-pressed="${String(speechRate) === v}">${t}</button>`).join("")}</div>` : "";
+  const secHead = (no, id, en, zhs, intro) => `<header class="sec-head" id="${id}">
+      <span class="sec-no">${no}</span>
+      <div><h2>${en} <span class="zh" lang="zh-Hans">${zhs}</span></h2><p>${intro}</p></div>
+    </header>`;
+  const further = (items) => `<p class="further"><span>Go further</span>${items.filter(Boolean).join("")}</p>`;
+
+  function wordOfDay() {
+    const pool = shuffled(WORDS.filter((w) => w.lv <= 2 && w.group !== "Phrases" && w.syl.length), "wotd");
+    const day = Math.floor((Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000);
+    return pool[day % pool.length];
+  }
+
+  function phraseCards() {
+    return (L.phrases[learnState.topic] || []).map(([en, zhs, py, note], i) => `
+      <button class="flip" data-flip aria-expanded="false" aria-label="${esc(en)}. Tap to see the Chinese.">
+        <span class="flip-front"><span class="flip-en">${esc(en)}</span><span class="flip-hint">Say it in Chinese, then tap to check</span></span>
+        <span class="flip-back"><span class="zh" lang="zh-Hans">${esc(zhs)}</span><span class="py lat">${esc(py)}</span>${note ? `<span class="flip-note">${esc(note)}</span>` : ""}</span>
+      </button>`).join("");
+  }
+
+  function quizHtml() {
+    const done = Object.keys(learnState.answers).length;
+    const right = L.quiz.filter((q, i) => learnState.answers[i] === q[2]).length;
+    return `<ol class="quiz">${L.quiz.map(([q, opts, ok, why], i) => {
+      const a = learnState.answers[i];
+      const answered = a !== undefined;
+      return `<li class="q${answered ? (a === ok ? " is-right" : " is-wrong") : ""}">
+        <p class="q-text">${latin(esc(q))}</p>
+        <div class="q-opts">${opts.map((o, j) => `<button class="q-opt${answered && j === ok ? " ok" : ""}${answered && j === a && a !== ok ? " no" : ""}" data-q="${i}" data-a="${j}" ${answered ? "disabled" : ""}><span class="q-letter">${LETTERS[j]}</span>${hasZh(o) ? zh(o) : `<span class="lat">${esc(o)}</span>`}</button>`).join("")}</div>
+        ${answered ? `<p class="q-why"><b>${a === ok ? "Correct." : "Not quite."}</b> ${latin(esc(why))}</p>` : ""}
+      </li>`; }).join("")}</ol>
+      <div class="quiz-score" aria-live="polite">
+        <p><b class="mono">${right} / ${L.quiz.length}</b> ${done < L.quiz.length ? `· ${L.quiz.length - done} left to answer` : right === L.quiz.length ? "· Perfect score. 太棒了！" : right >= 7 ? "· Great work. Review the ones you missed above." : "· Read sections 03 and 04 again, then try once more."}</p>
+        ${done ? `<button class="btn ghost small" data-quiz-reset>Try again</button>` : ""}
+      </div>`;
+  }
+
+  function renderHome() {
+    document.title = "N1Mandarin — Learn Mandarin from English, one clear step at a time";
+    setActiveNav("learn");
+    const w = wordOfDay();
+    main.innerHTML = `
+      <section class="hero home-hero">
+        <div class="hero-text">
+          <p class="eyebrow">For English speakers · 给说英语的中文学习者</p>
+          <h1>From English to Mandarin, one clear step at a time.</h1>
+          <p class="hero-zh zh" lang="zh-Hans">从英语到中文，一步一步。</p>
+          <p class="lede">Mandarin explained from an English speaker's point of view: the sounds English doesn't have, where the grammar works the other way round, and the mistakes English speakers make most. Tap any Chinese example to hear it.</p>
+          <div class="hero-ctas"><button class="btn" data-jump="sounds">Start learning</button><button class="btn ghost" data-jump="quiz">Take the quiz</button></div>
+        </div>
+        ${w ? `<aside class="wotd" aria-label="Word of the day">
+          <p class="eyebrow">Word of the day · 每日一词</p>
+          <button class="wotd-word" data-say="${esc(w.zh)}" title="Listen"><span class="zh" lang="zh-Hans">${esc(w.zh)}</span>${canSpeak ? ICON_SOUND : ""}</button>
+          <p class="wotd-py lat">${esc(w.py)}</p>
+          <p class="wotd-en">${esc(shortEn(w.en))}</p>
+          <ul class="wotd-split">${w.syl.map((x) => `<li><span class="lat">${esc(x.text)}</span><small>${x.ini ? `<b>${esc(x.ini)}</b> + ` : ""}${esc(finLabel(x.fin))} · tone ${x.tone === 5 ? "neutral" : x.tone}</small></li>`).join("")}</ul>
+          <p class="wotd-meta"><span>HSK ${w.lv}</span><span>${esc(w.pos.split(",")[0])}</span><button class="link" data-split="${esc(w.py)}">Hear each sound</button></p>
+        </aside>` : ""}
+      </section>
+
+      <nav class="path" aria-label="Learning path">
+        ${[["sounds", "Sounds"], ["phrases", "Phrases"], ["grammar", "Grammar"], ["mistakes", "Mistakes"], ["quiz", "Quiz"], ["tools", "Study tools"]].map(([id, t], i) => `<button data-jump="${id}"><span class="mono">${i < 5 ? "0" + (i + 1) : "→"}</span>${t}</button>`).join("")}
+      </nav>
+
+      <section class="learn-sec">
+        ${secHead("01", "sounds", "Sounds English doesn't have", "英语里没有的音", "Most Mandarin sounds are close to English, but a few have no English match and change the meaning of a word. Each card says how to make the sound. Tap the pairs and listen for the difference.")}
+        ${speedRow()}
+        <div class="sound-grid">${L.sounds.map((s) => `<article class="sound">
+          <p class="sound-sym lat">${esc(s.sym)}</p>
+          <h3>${esc(s.title)}</h3>
+          <p class="sound-tip">${esc(s.tip)}</p>
+          <ul class="pairs">${s.pairs.reduce((rows, p, i) => (i % 2 ? rows[rows.length - 1].push(p) : rows.push([p]), rows), []).map(([a, b]) => `<li>${sayItem(...a)}<span class="vs">vs</span>${sayItem(...b)}</li>`).join("")}</ul>
+        </article>`).join("")}</div>
+        ${further([`<a href="#/pinyin">Pinyin sounds: split any syllable and hear every initial and final</a>`, paperLink("tones"), paperLink("initials-finals"), paperLink("tricky-sounds")])}
+      </section>
+
+      <section class="learn-sec">
+        ${secHead("02", "phrases", "Everyday phrase cards", "常用语卡片", "Read the English, try to say it in Mandarin, then tap the card to check and hear it. Start with greetings and the classroom phrases. You'll use them every lesson.")}
+        ${chipRow("Topic", Object.keys(L.phrases), learnState.topic, "data-topic")}
+        ${speedRow()}
+        <div class="flip-grid" data-flips>${phraseCards()}</div>
+        ${further([`<a href="#/flashcards">Flashcards: all 1,000 HSK 1–3 words</a>`, paperLink("greetings"), paperLink("food-drink"), paperLink("directions")])}
+      </section>
+
+      <section class="learn-sec">
+        ${secHead("03", "grammar", "Where the grammar differs", "语法差异", "Mandarin grammar is often simpler than English: no tenses, no plurals and no verb endings. But the word order follows different rules. These are the 10 differences that matter most at the start.")}
+        <ol class="gram-grid">${L.grammar.map((g, i) => `<li class="gram">
+          <span class="gram-no mono">${String(i + 1).padStart(2, "0")}</span>
+          <h3>${esc(g.title)} <span class="zh" lang="zh-Hans">${esc(g.zh)}</span></h3>
+          <p>${latin(esc(g.en))}</p>
+          <p class="ex bad"><span class="mark" aria-label="Wrong">✗</span>${zh(g.wrong)}</p>
+          <p class="ex good"><span class="mark" aria-label="Right">✓</span><button class="say-line" data-say="${esc(g.right)}" title="Listen">${zh(g.right)}</button></p>
+          <p class="gloss">${esc(g.gloss)}</p>
+        </li>`).join("")}</ol>
+        ${further([paperLink("measure-words"), paperLink("question-words"), paperLink("le-guo"), paperLink("de"), paperLink("zai"), paperLink("ba")])}
+      </section>
+
+      <section class="learn-sec">
+        ${secHead("04", "mistakes", "Common English-speaker mistakes", "英语母语者的常见错误", "These are the sentences English speakers build by translating word for word. The Chinese is understandable, but it sounds wrong. Learn the natural version and why it works.")}
+        <ul class="fix-list">${L.mistakes.map(([bad, good, note]) => `<li class="fix">
+          <p class="ex bad"><span class="mark" aria-label="Wrong">✗</span>${zh(bad)}</p>
+          <p class="ex good"><span class="mark" aria-label="Right">✓</span><button class="say-line" data-say="${esc(good)}" title="Listen">${zh(good)}</button></p>
+          <p class="fix-note">${latin(esc(note))}</p>
+        </li>`).join("")}</ul>
+        ${further([paperLink("hui-neng-keyi"), paperLink("comparisons"), paperLink("connectors")])}
+      </section>
+
+      <section class="learn-sec">
+        ${secHead("05", "quiz", "Quick quiz", "小测验", "Ten questions on the sounds, grammar and mistakes above. Pick an answer to see whether it's right and why.")}
+        <div data-quiz>${quizHtml()}</div>
+      </section>
+
+      <section class="toolkit learn-tools" aria-labelledby="tools">
+        <div class="toolkit-head" id="tools">
+          <h2>Keep studying <span class="zh">学习工具</span></h2>
+          <p>Built from the New HSK (3.0) lists: 300 Level 1, 200 Level 2 and 500 Level 3 words.</p>
+        </div>
+        <div class="tools">
+          <a class="tool" href="#/pinyin"><span class="tool-zh zh">音</span><h3>Pinyin sounds</h3><p>Split any syllable into initial, final and tone. Hear every sound and find the HSK words that use it.</p></a>
+          <a class="tool" href="#/words"><span class="tool-zh zh">词</span><h3>Word list</h3><p>All 1,000 HSK 1–3 words with pinyin and meaning. Hide columns to test yourself and tick the words you know.</p></a>
+          <a class="tool" href="#/flashcards"><span class="tool-zh zh">卡</span><h3>Flashcards</h3><p>Flip through words by topic, hear each one, and sort them into "know it" and "still learning".</p></a>
+          <a class="tool" href="#/papers"><span class="tool-zh zh">纸</span><h3>Worksheets</h3><p>${papers.length} printable papers with answer keys, from pinyin and tones to 把 and result complements.</p></a>
+        </div>
+        <p class="teacher-note">Teaching a class? Print any worksheet on A4, or use the <a href="#/generate">paper generator</a> to build a new HSK paper with an answer key. See <a href="#/about">For teachers</a>.</p>
+      </section>`;
+
+    wireSpeak(main);
+    wireHome();
+  }
+
+  function wireHome() {
+    main.querySelectorAll("[data-jump]").forEach((b) => b.addEventListener("click", () => {
+      const t = document.getElementById(b.dataset.jump);
+      if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+    }));
+    main.querySelectorAll("[data-rate]").forEach((b) => b.addEventListener("click", () => {
+      speechRate = +b.dataset.rate;
+      main.querySelectorAll("[data-rate]").forEach((x) => x.setAttribute("aria-pressed", x.dataset.rate === b.dataset.rate));
+    }));
+    const split = main.querySelector("[data-split]");
+    if (split) split.addEventListener("click", () => { pyState.q = split.dataset.split; location.hash = "#/pinyin"; });
+    main.querySelectorAll("[data-topic]").forEach((b) => b.addEventListener("click", () => {
+      learnState.topic = b.dataset.topic;
+      main.querySelectorAll("[data-topic]").forEach((x) => x.setAttribute("aria-pressed", x === b));
+      main.querySelector("[data-flips]").innerHTML = phraseCards();
+      wireFlips();
+    }));
+    wireFlips();
+    wireQuiz();
+  }
+
+  function wireFlips() {
+    main.querySelectorAll("[data-flip]").forEach((c) => c.addEventListener("click", () => {
+      const open = c.getAttribute("aria-expanded") !== "true";
+      c.setAttribute("aria-expanded", open);
+      if (open) speak(c.querySelector(".flip-back .zh").textContent);
+    }));
+  }
+
+  function wireQuiz() {
+    const box = main.querySelector("[data-quiz]");
+    box.querySelectorAll("[data-q]").forEach((b) => b.addEventListener("click", () => {
+      learnState.answers[+b.dataset.q] = +b.dataset.a;
+      box.innerHTML = quizHtml();
+      wireQuiz();
+    }));
+    const r = box.querySelector("[data-quiz-reset]");
+    if (r) r.addEventListener("click", () => { learnState.answers = {}; box.innerHTML = quizHtml(); wireQuiz(); box.scrollIntoView({ behavior: "smooth" }); });
   }
 
   /* ---------- Library ---------- */
@@ -109,35 +287,17 @@
   }
 
   function renderLibrary() {
-    document.title = "N1Mandarin — Printable practice papers";
+    document.title = "Worksheets — N1Mandarin";
     setActiveNav("papers");
     main.innerHTML = `
-      <section class="hero">
-        <div class="hero-text">
-          <p class="eyebrow">The Best Mandarin Class · 练习纸</p>
-          <h1>Practice papers you can print, mark and reuse.</h1>
-          <p class="lede">Ready-made worksheets, the full HSK 1–3 (3.0) word lists, flashcards with audio, and a generator that builds a new printable paper in one click. Every paper has an answer key and prints cleanly on A4.</p>
-          <div class="hero-ctas"><a class="btn" href="#library">Browse the papers</a><a class="btn ghost" href="#/generate">Generate an HSK paper</a></div>
-        </div>
-        <div class="hero-grid" aria-hidden="true">
-          ${["学", "中", "文"].map((c) => `<span class="tzg big">${c}</span>`).join("")}
-        </div>
-      </section>
-      <section class="toolkit" aria-labelledby="toolkit-h">
-        <div class="toolkit-head">
-          <h2 id="toolkit-h">HSK toolkit <span class="zh">新HSK一至三级</span></h2>
-          <p>Built from the New HSK (3.0) lists: 300 Level 1, 200 Level 2 and 500 Level 3 words.</p>
-        </div>
-        <div class="tools">
-          <a class="tool" href="#/words"><span class="tool-zh zh">词</span><h3>Word list</h3><p>All 1,000 HSK 1–3 words with pinyin, part of speech and meaning. Search, filter, listen, and hide columns to test yourself.</p></a>
-          <a class="tool" href="#/flashcards"><span class="tool-zh zh">卡</span><h3>Flashcards</h3><p>Flip through words by topic, hear each one, and sort them into "know it" and "still learning".</p></a>
-          <a class="tool" href="#/pinyin"><span class="tool-zh zh">音</span><h3>Pinyin sounds</h3><p>Split any syllable into initial, final and tone. Hear every sound and find the HSK words that use it.</p></a>
-          <a class="tool" href="#/generate"><span class="tool-zh zh">卷</span><h3>Paper generator</h3><p>Pick the sections and word types, and get a fresh printable paper with a matching answer key.</p></a>
-        </div>
+      <section class="page-head">
+        <p class="eyebrow">For teachers and self-study · 练习纸</p>
+        <h1>Worksheets <span class="zh">练习纸</span></h1>
+        <p class="lede">${papers.length} printable papers that follow the learning path: pinyin and tones, everyday phrases, grammar points and character practice for HSK 1–3. Each one has an answer key and prints cleanly on A4. Need more? <a href="#/generate">Generate a new HSK paper</a>.</p>
       </section>
       <section id="library" class="library">
         <div class="library-head">
-          <h2>Worksheet library</h2>
+          <h2>All papers</h2>
           <label class="search"><span class="sr">Search papers</span>
             <input type="search" placeholder="Search papers…" value="${esc(state.q)}" data-search /></label>
         </div>
@@ -240,10 +400,10 @@
   function renderPaper(id) {
     setActiveNav("papers");
     const p = papers.find((x) => x.id === id);
-    if (!p) { main.innerHTML = `<section class="narrow"><h1>Paper not found</h1><p><a href="#/">Back to the library</a></p></section>`; return; }
+    if (!p) { main.innerHTML = `<section class="narrow"><h1>Paper not found</h1><p><a href="#/papers">Back to the worksheets</a></p></section>`; return; }
     document.title = `${p.title} — N1Mandarin`;
     const next = papers[(papers.indexOf(p) + 1) % papers.length];
-    main.innerHTML = toolbarHtml("#/", "Library") + sheetHtml(p) +
+    main.innerHTML = toolbarHtml("#/papers", "Worksheets") + sheetHtml(p) +
       `<nav class="next no-print"><a href="#/paper/${next.id}">Next paper: ${esc(next.title)} →</a></nav>`;
     wireSheet();
   }
@@ -516,7 +676,7 @@
           <button type="button" class="btn ghost" data-new>New paper</button>
         </div>
       </form>
-      ${gen.secs.length ? toolbarHtml("#/", "Library") + sheetHtml(p) : `<p class="empty">Choose at least one section to build a paper.</p>`}
+      ${gen.secs.length ? toolbarHtml("#/papers", "Worksheets") + sheetHtml(p) : `<p class="empty">Choose at least one section to build a paper.</p>`}
       <div class="no-print" style="height:var(--space-20)"></div>`;
     if (gen.secs.length) wireSheet();
     safeReplace(genHash());
@@ -539,10 +699,12 @@
 
   /* ---------- About ---------- */
   function renderAbout() {
-    document.title = "How to use — N1Mandarin";
+    document.title = "For teachers — N1Mandarin";
     setActiveNav("about");
     main.innerHTML = `<section class="narrow about">
-      <h1>How to use N1Mandarin</h1>
+      <h1>For teachers: how to use N1Mandarin</h1>
+      <h2>The learning path</h2>
+      <p>The <a href="#/">Learn</a> page is written for English-speaking students. Work through it in order: 01 sounds English doesn't have, 02 everyday phrase cards, 03 where the grammar differs, 04 common English-speaker mistakes, then 05 the quiz. Each section links to the worksheets that practise it, so you can set the matching paper as homework. The content lives in <code>learn.js</code>.</p>
       <h2>Worksheets in class</h2>
       <p>Open a paper, switch off <b>Pinyin</b> for stronger students, and choose <b>Print / Save PDF</b>. The site header and buttons are hidden when printing, so you get a clean A4 worksheet with name, date and score boxes.</p>
       <h2>Marking</h2>
@@ -555,7 +717,7 @@
       <p>The <a href="#/generate">generator</a> picks words at random from the HSK 1, HSK 2 or HSK 3 list, or all three. Every paper has a code: type the same code with the same settings to rebuild the identical paper, or copy the page link to share it.</p>
       <h2>Adding worksheets</h2>
       <p>Worksheet content lives in <code>papers.js</code> and the vocabulary in <code>hsk1.js</code>, <code>hsk2.js</code> and <code>hsk3.js</code>. Copy an existing paper object, give it a new <code>id</code>, and use the section types <code>tone</code>, <code>match</code>, <code>fill</code>, <code>translate</code>, <code>grid</code> or <code>reading</code>.</p>
-      <p><a class="btn" href="#/">Go to the library</a></p>
+      <p><a class="btn" href="#/papers">See the worksheets</a></p>
     </section>`;
   }
 
@@ -714,11 +876,7 @@
   /* ---------- Router ---------- */
   function route() {
     const h = location.hash;
-    if (h === "#library") {
-      if (!document.getElementById("library")) renderLibrary();
-      document.getElementById("library").scrollIntoView({ behavior: "smooth" });
-      return;
-    }
+    if (h === "#library") { location.replace("#/papers"); return; } // old links
     const [path, qs] = h.split("?");
     const m = path.match(/^#\/paper\/([\w-]+)/);
     if (m) renderPaper(m[1]);
@@ -727,7 +885,8 @@
     else if (path === "#/generate") renderGenerate(qs || "");
     else if (path === "#/pinyin") renderPinyin();
     else if (path === "#/about") renderAbout();
-    else renderLibrary();
+    else if (path === "#/papers") renderLibrary();
+    else renderHome();
     window.scrollTo(0, 0);
   }
   window.addEventListener("hashchange", route);
