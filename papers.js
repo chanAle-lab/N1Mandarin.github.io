@@ -1186,5 +1186,183 @@ window.PAPERS = [
         ]
       }
     ]
+  },
+  {
+    id: "bei",
+    no: "27",
+    title: "The Passive with 被",
+    zh: "“被”字句",
+    level: "HSK 3",
+    skill: "Grammar",
+    minutes: 25,
+    summary: "Form passive sentences with 被, express unexpected or unfortunate outcomes, and switch between active, 把 and 被 structures.",
+    sections: [
+      {
+        type: "fill",
+        title: "Fill the gap: 被, 没, or 让/叫",
+        instructions: "Pattern: Receiver + 被 (+ Doer) + Verb + other element. Fill each blank with the right word from the box.",
+        bank: ["被", "没", "叫", "让"],
+        items: [
+          { zh: "我的手机___小偷偷走了。", py: "Wǒ de shǒujī ___ xiǎotōu tōu zǒu le.", a: "被" },
+          { zh: "桌子上的蛋糕___弟弟吃了。", py: "Zhuōzi shang de dàngāo ___ dìdi chī le.", a: "被" },
+          { zh: "那张电影票___被他拿走，还在我这儿。", py: "Nà zhāng diànyǐng piào ___ bèi tā ná zǒu, hái zài wǒ zhèr.", a: "没" },
+          { zh: "自行车被大雨淋___了。", py: "Zìxíngchē bèi dàyǔ lín ___ le.", a: "湿" },
+          { zh: "我的杯子不知被谁弄___了。", py: "Wǒ de bēizi bù zhī bèi shéi nòng ___ le.", a: "坏" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Rewrite into a 被 sentence",
+        instructions: "Turn the active or 把 sentence into a passive sentence with 被.",
+        items: [
+          { q: "小偷偷走了他的钱包。", a: "他的钱包被小偷偷走了。" },
+          { q: "大雨淋湿了我们的衣服。", a: "我们的衣服被大雨淋湿了。" },
+          { q: "猫吃了桌子上的鱼。", a: "桌子上的鱼被猫吃了。" },
+          { q: "我把那杯牛奶喝光了。", a: "那杯牛奶被我喝光了。" },
+          { q: "他没打破那个花瓶。", a: "那个花瓶没被他打破。 (没 goes before 被)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Spot the mistake",
+        instructions: "Each sentence has one common mistake. Write the corrected sentence.",
+        items: [
+          { q: "我的自行车被偷。", a: "我的自行车被偷了。 (the verb needs an ending like 了 or a complement)" },
+          { q: "衣服被我没弄脏。", a: "衣服没被我弄脏。 (negation 没 must go before 被)" },
+          { q: "蛋糕被吃了我。", a: "蛋糕被我吃了。 (pattern: 被 + doer + verb, not verb + doer)" },
+          { q: "今天早上我被他听见了这首歌。", a: "这首歌被他听见了。 (verbs of perception like 听见 / 看见 take the object as subject)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Use a 被 sentence for each translation.",
+        items: [
+          { q: "My keys were taken away by someone.", a: "我的钥匙被别人拿走了。" },
+          { q: "The apple was eaten by the dog.", a: "苹果被狗吃了。" },
+          { q: "His glasses were broken by his younger brother.", a: "他的眼镜被弟弟弄坏了 / 打破了。" },
+          { q: "The luggage wasn't lost by the airline.", a: "行李没被弄丢。" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "youdianr-yidianr",
+    no: "28",
+    title: "A Bit: 有点儿 vs 一点儿",
+    zh: "有点儿和一点儿",
+    level: "HSK 2",
+    skill: "Grammar",
+    minutes: 20,
+    summary: "Master one of Mandarin's most common traps: 有点儿 goes before adjectives (usually showing complaint), while 一点儿 goes after verbs or adjectives.",
+    sections: [
+      {
+        type: "fill",
+        title: "Choose 有点儿 or 一点儿",
+        instructions: "Fill in each gap with 有点儿 (before negative adjective) or 一点儿 (after verb or adjective).",
+        bank: ["有点儿", "一点儿"],
+        items: [
+          { zh: "今天外边___冷，多穿件衣服吧。", py: "Jīntiān wàibian ___ lěng, duō chuān jiàn yīfu ba.", a: "有点儿" },
+          { zh: "请你说慢___，我听不懂。", py: "Qǐng nǐ shuō màn ___, wǒ tīng bù dǒng.", a: "一点儿" },
+          { zh: "这件毛衣___贵，有没有便宜___的？", py: "Zhè jiàn máoyī ___ guì, yǒu méiyǒu piányi ___ de?", a: "有点儿 … 一点儿" },
+          { zh: "我嗓子疼，想喝___热水。", py: "Wǒ sǎngzi téng, xiǎng hē ___ rèshuǐ.", a: "一点儿" },
+          { zh: "我今天___累，晚上不想去看电影了。", py: "Wǒ jīntiān ___ lèi, wǎnshang bù xiǎng qù kàn diànyǐng le.", a: "有点儿" },
+          { zh: "快___，我们快要迟到了！", py: "Kuài ___, wǒmen kuàiyào chídào le!", a: "一点儿" }
+        ]
+      },
+      {
+        type: "match",
+        title: "Match the phrase to the English meaning",
+        instructions: "Notice where 有点儿 or 一点儿 sits in each sentence.",
+        items: [
+          { zh: "这双鞋有点儿大。", py: "Zhè shuāng xié yǒudiǎnr dà.", a: "These shoes are slightly too big (displeased)." },
+          { zh: "有没有大一点儿的？", py: "Yǒu méiyǒu dà yìdiǎnr de?", a: "Do you have ones that are slightly bigger?" },
+          { zh: "我想买一点儿水果。", py: "Wǒ xiǎng mǎi yìdiǎnr shuǐguǒ.", a: "I'd like to buy a little fruit." },
+          { zh: "他今天有点儿不舒服。", py: "Tā jīntiān yǒudiǎnr bù shūfu.", a: "He feels a bit unwell today." },
+          { zh: "请声音大一点儿。", py: "Qǐng shēngyīn dà yìdiǎnr.", a: "Please be a little bit louder." },
+          { zh: "这道题有点儿难。", py: "Zhè dào tí yǒudiǎnr nán.", a: "This question is a bit difficult." }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Fix the mistake",
+        instructions: "Correct the misplaced 有点儿 or 一点儿 in each sentence.",
+        items: [
+          { q: "我今天一点儿累。 (I'm a bit tired today)", a: "我今天有点儿累。 (有点儿 goes before adjectives)" },
+          { q: "请说一点儿慢。 (Please speak a bit slower)", a: "请说慢一点儿。 (一点儿 goes after the adjective to mean 'a bit more')" },
+          { q: "这个菜好吃有点儿。 (This dish is a bit delicious)", a: "这个菜很好吃。 (有点儿 is usually for negative feelings, not compliments!)" },
+          { q: "我要买有点儿面包。 (I want to buy a little bread)", a: "我要买一点儿面包。 (verb + 一点儿 + noun)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Use either 有点儿 or 一点儿 correctly.",
+        items: [
+          { q: "It's a little bit cold today.", a: "今天有点儿冷。" },
+          { q: "Could you walk a bit faster?", a: "请你走快一点儿。" },
+          { q: "I'd like to have a little coffee.", a: "我想喝一点儿咖啡。" },
+          { q: "This computer is a bit expensive.", a: "这台电脑有点儿贵。" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "shi-de",
+    no: "29",
+    title: "The 是……的 Construction",
+    zh: "“是……的”句",
+    level: "HSK 2",
+    skill: "Grammar",
+    minutes: 20,
+    summary: "When an action has already occurred, use 是……的 to zoom in on the time, place, manner, or person. Never mix it with 了!",
+    sections: [
+      {
+        type: "match",
+        title: "What is being emphasized?",
+        instructions: "Match each sentence with the element it emphasizes.",
+        items: [
+          { zh: "我是昨天到北京的。", py: "Wǒ shì zuótiān dào Běijīng de.", a: "Time (when)" },
+          { zh: "我们是在大学认识的。", py: "Wǒmen shì zài dàxué rènshi de.", a: "Place (where)" },
+          { zh: "他是坐高铁来的。", py: "Tā shì zuò gāotiě lái de.", a: "Manner / Transport (how)" },
+          { zh: "这本字典是他买的。", py: "Zhè běn zìdiǎn shì tā mǎi de.", a: "Person / Agent (who)" },
+          { zh: "我是跟朋友一起来的。", py: "Wǒ shì gēn péngyou yìqǐ lái de.", a: "Company (with whom)" },
+          { zh: "他不是一个人去的。", py: "Tā bú shì yí ge rén qù de.", a: "Negative emphasis (not alone)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Rewrite with 是……的",
+        instructions: "Rewrite each sentence using 是……的 to emphasize the underlined detail in brackets.",
+        items: [
+          { q: "他去年九月来中国。 (emphasize: 去年九月)", a: "他是去年九月来中国的。" },
+          { q: "我在网上买了这个包。 (emphasize: 在网上)", a: "这个包我是在网上买的。 / 我是在网上买这个包的。" },
+          { q: "他们坐飞机去上海。 (emphasize: 坐飞机)", a: "他们是坐飞机去上海的。" },
+          { q: "谁写的这个汉字？ (emphasize: 谁)", a: "这个汉字是谁写的？" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Find the mistake",
+        instructions: "Find and fix the error in each 是……的 sentence.",
+        items: [
+          { q: "我是昨天来了学校的。", a: "我是昨天来学校的。 (never put 了 inside 是……的)" },
+          { q: "你什么时候是来的？", a: "你是什么时候来的？ (是 must go right in front of the emphasized phrase)" },
+          { q: "他不是坐火车来。", a: "他不是坐火车来的。 (don't forget 的 at the end)" },
+          { q: "我明天是去看电影的。", a: "我明天去看电影。 (是……的 is for past completed actions, not tomorrow)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Use the 是……的 structure for each translation.",
+        items: [
+          { q: "I came to London in 2020.", a: "我是2020年来伦敦的。" },
+          { q: "Where did you buy this coat?", a: "你这件大衣是在哪儿买的？" },
+          { q: "How did you get here? — I came by bike.", a: "你是在怎么来的？ — 我是骑自行车来的。" },
+          { q: "This cake was made by my mom.", a: "这个蛋糕是我妈妈做的。" }
+        ]
+      }
+    ]
   }
 ];

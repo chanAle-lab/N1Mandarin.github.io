@@ -136,7 +136,16 @@ window.LEARN = {
       wrong: "首都的中国", right: "中国的首都", gloss: "China's capital → the capital of China." },
     { title: "Say yes by repeating the verb", zh: "用动词回答",
       en: "There isn't one word for 'yes'. Answer with the verb from the question, or 不 + the verb for 'no'. 是 only means 'yes' when the question uses 是.",
-      wrong: "你去吗？ — 是。", right: "你去吗？ — 去。/ 不去。", gloss: "Are you going? Going. / Not going." }
+      wrong: "你去吗？ — 是。", right: "你去吗？ — 去。/ 不去。", gloss: "Are you going? Going. / Not going." },
+    { title: "A bit too much vs a bit more: 有点儿 / 一点儿", zh: "有点儿 vs 一点儿",
+      en: "有点儿 goes BEFORE adjectives and expresses mild dissatisfaction ('a bit too cold/expensive'). 一点儿 goes AFTER adjectives ('a bit more/cheaper') or verbs ('a little water').",
+      wrong: "这件衣服一点儿贵，请便宜有点儿。", right: "这件衣服有点儿贵，请便宜一点儿。", gloss: "This coat is a bit too expensive, please make it a bit cheaper." },
+    { title: "Emphasize when, where or how: 是……的", zh: "是……的 句型",
+      en: "When an action has already happened, use 是……的 to focus on the time, place, manner or person. Never use 了 inside this pattern.",
+      wrong: "我是昨天来了中国的。", right: "我是昨天来中国的。", gloss: "I came to China yesterday (focusing on 'yesterday')." },
+    { title: "The passive voice: 被", zh: "“被”字句",
+      en: "Put the receiver of the action first, followed by 被 and the doer. It usually describes an unfortunate or unexpected outcome.",
+      wrong: "我的自行车偷了。", right: "我的自行车被偷了。", gloss: "My bicycle was stolen (not 'my bicycle stole')." }
   ],
 
   /* 04 Common English-speaker mistakes */
@@ -152,7 +161,10 @@ window.LEARN = {
     ["我看你明天。", "明天见！", "'See you tomorrow' is 明天见. 看 means 'watch' or 'look at'."],
     ["他是很高。", "他很高。", "Again, no 是 before an adjective. 很 does the linking."],
     ["我很喜欢中国菜很多。", "我非常喜欢中国菜。", "Don't add 很多 at the end for 'a lot'. Make the adverb in front stronger: 非常 or 特别."],
-    ["我去了北京去年。", "我去年去了北京。", "The time word moves to the front, before the verb."]
+    ["我去了北京去年。", "我去年去了北京。", "The time word moves to the front, before the verb."],
+    ["这件衣服一点儿贵。", "这件衣服有点儿贵。", "Before an adjective, use 有点儿 to mean 'a bit too...'. 一点儿 goes after the adjective."],
+    ["我是坐高铁来了北京的。", "我是坐高铁来北京的。", "Don't put 了 inside the 是……的 emphasis pattern."],
+    ["蛋糕被我不小心吃。", "蛋糕被我不小心吃了。", "In a 被 sentence, the verb must have an aspect marker (like 了) or a result complement."]
   ],
 
   /* 05 Quick quiz: [question, options, correct index, explanation] */
@@ -166,6 +178,9 @@ window.LEARN = {
     ["How do you say 'I'm 25'?", ["我有二十五岁。", "我二十五岁。", "我二十五年。"], 1, "Just say the age with 岁. No 有 and no 是."],
     ["How do you say 'I work in a bank'?", ["我在银行工作。", "我工作在银行。", "我银行工作。"], 0, "The 在 + place phrase goes before the verb."],
     ["Which syllable means 'to buy'?", ["mǎi", "mài", "māi"], 0, "买 mǎi (3rd tone) is 'to buy'. 卖 mài (4th tone) is 'to sell'."],
-    ["你喜欢喝茶吗？ How do you answer 'Yes'?", ["是。", "喜欢。", "有。"], 1, "Answer with the verb from the question: 喜欢 for yes, 不喜欢 for no."]
+    ["你喜欢喝茶吗？ How do you answer 'Yes'?", ["是。", "喜欢。", "有。"], 1, "Answer with the verb from the question: 喜欢 for yes, 不喜欢 for no."],
+    ["How do you say 'This pair of shoes is a bit small'?", ["这双鞋一点儿小。", "这双鞋有点儿小。", "这双鞋有小一点儿。"], 1, "Use 有点儿 before an adjective to show a slight complaint or excess."],
+    ["How do you say 'I came to Beijing by train'?", ["我是坐火车来北京的。", "我是坐火车来了北京的。", "我坐火车是来北京的。"], 0, "Use 是……的 to emphasize past details like transport. Do not include 了 inside."],
+    ["How do you say 'My wallet was stolen'?", ["我的钱包偷了。", "我的钱包被偷了。", "我的钱包把偷了。"], 1, "Use 被 for passive voice when something unexpected or unfortunate happens to the subject."]
   ]
 };
