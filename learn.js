@@ -145,7 +145,13 @@ window.LEARN = {
       wrong: "我是昨天来了中国的。", right: "我是昨天来中国的。", gloss: "I came to China yesterday (focusing on 'yesterday')." },
     { title: "The passive voice: 被", zh: "“被”字句",
       en: "Put the receiver of the action first, followed by 被 and the doer. It usually describes an unfortunate or unexpected outcome.",
-      wrong: "我的自行车偷了。", right: "我的自行车被偷了。", gloss: "My bicycle was stolen (not 'my bicycle stole')." }
+      wrong: "我的自行车偷了。", right: "我的自行车被偷了。", gloss: "My bicycle was stolen (not 'my bicycle stole')." },
+    { title: "Places go inside directional verbs", zh: "动词 + 地方 + 来/去",
+      en: "When using motion complements with a location (like home, school, or room), the place noun MUST go between the motion verb and 来/去.",
+      wrong: "我们回去家吧。", right: "我们回家去吧。", gloss: "We go back home (回 return + 家 home + 去 go away from current place)." },
+    { title: "Expressing duration: repeat the verb", zh: "时量补语",
+      en: "When a verb has an object, you cannot put duration at the end in English order. Repeat the verb (Verb + Obj + Verb + 了 + Duration) or put duration before the noun with 的.",
+      wrong: "我学中文三年。", right: "我学中文学了三年。", gloss: "I study Chinese study-le three years → I've studied Chinese for 3 years." }
   ],
 
   /* 04 Common English-speaker mistakes */
@@ -164,7 +170,9 @@ window.LEARN = {
     ["我去了北京去年。", "我去年去了北京。", "The time word moves to the front, before the verb."],
     ["这件衣服一点儿贵。", "这件衣服有点儿贵。", "Before an adjective, use 有点儿 to mean 'a bit too...'. 一点儿 goes after the adjective."],
     ["我是坐高铁来了北京的。", "我是坐高铁来北京的。", "Don't put 了 inside the 是……的 emphasis pattern."],
-    ["蛋糕被我不小心吃。", "蛋糕被我不小心吃了。", "In a 被 sentence, the verb must have an aspect marker (like 了) or a result complement."]
+    ["蛋糕被我不小心吃。", "蛋糕被我不小心吃了。", "In a 被 sentence, the verb must have an aspect marker (like 了) or a result complement."],
+    ["我们回去家吧。", "我们回家去吧。", "When using directional complements with a location (like home or school), the place MUST go between the motion verb and 来/去."],
+    ["我学中文三年。", "我学中文学了三年。", "For duration with an object, repeat the verb (学中文学了三年) or place duration before the noun (学了三年中文)."]
   ],
 
   /* 05 Quick quiz: [question, options, correct index, explanation] */
@@ -181,6 +189,8 @@ window.LEARN = {
     ["你喜欢喝茶吗？ How do you answer 'Yes'?", ["是。", "喜欢。", "有。"], 1, "Answer with the verb from the question: 喜欢 for yes, 不喜欢 for no."],
     ["How do you say 'This pair of shoes is a bit small'?", ["这双鞋一点儿小。", "这双鞋有点儿小。", "这双鞋有小一点儿。"], 1, "Use 有点儿 before an adjective to show a slight complaint or excess."],
     ["How do you say 'I came to Beijing by train'?", ["我是坐火车来北京的。", "我是坐火车来了北京的。", "我坐火车是来北京的。"], 0, "Use 是……的 to emphasize past details like transport. Do not include 了 inside."],
-    ["How do you say 'My wallet was stolen'?", ["我的钱包偷了。", "我的钱包被偷了。", "我的钱包把偷了。"], 1, "Use 被 for passive voice when something unexpected or unfortunate happens to the subject."]
+    ["How do you say 'My wallet was stolen'?", ["我的钱包偷了。", "我的钱包被偷了。", "我的钱包把偷了。"], 1, "Use 被 for passive voice when something unexpected or unfortunate happens to the subject."],
+    ["How do you say 'Let's go home' (when away from home)?", ["我们回去家吧。", "我们回家去吧。", "我们去回家吧。"], 1, "Location nouns like 家 must sit between the verb and 去: 回家去."],
+    ["How do you say 'I have studied Chinese for three years'?", ["我学中文三年。", "我学中文学了三年。", "我三年学了中文。"], 1, "When expressing duration with a verb-object phrase, repeat the verb: 学中文学了三年 (or say 我学了三年中文)."]
   ]
 };

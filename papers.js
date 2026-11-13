@@ -1364,5 +1364,129 @@ window.PAPERS = [
         ]
       }
     ]
+  },
+  {
+    id: "direction",
+    no: "30",
+    title: "Directional Complements",
+    zh: "趋向补语",
+    level: "HSK 3",
+    skill: "Grammar",
+    minutes: 25,
+    summary: "Describe motion towards or away from the speaker with 来/去, master compounds like 进来, 出来 and 站起来, and learn the golden rule for place nouns.",
+    sections: [
+      {
+        type: "match",
+        title: "Match the direction pair to the speaker's perspective",
+        instructions: "Remember: 来 moves toward the speaker, 去 moves away from the speaker.",
+        items: [
+          { zh: "进来", py: "jìnlái", a: "Come in (speaker is inside the room)" },
+          { zh: "进去", py: "jìnqu", a: "Go in (speaker is outside the room)" },
+          { zh: "出来", py: "chūlái", a: "Come out (speaker is outside)" },
+          { zh: "出去", py: "chūqu", a: "Go out (speaker is inside)" },
+          { zh: "回来", py: "huílái", a: "Come back (speaker is at base/home)" },
+          { zh: "回去", py: "huíqu", a: "Go back (speaker is away from base/home)" },
+          { zh: "站起来", py: "zhàn qǐlái", a: "Stand up (upward movement)" },
+          { zh: "拿出来", py: "ná chūlái", a: "Take out (outward movement towards speaker)" }
+        ]
+      },
+      {
+        type: "fill",
+        title: "Complete with the correct direction word",
+        instructions: "Fill each gap from the box. Golden rule: location nouns must go between the verb and 来/去 (e.g. 回家去, 进教室来).",
+        bank: ["来", "去", "出来", "进去", "起", "下"],
+        items: [
+          { zh: "外面太冷了，快进屋子___吧！ (speaker is in the room)", py: "Wàimiàn tài lěng le, kuài jìn wūzi ___ ba!", a: "来" },
+          { zh: "天黑了，我们快回宿舍___吧。 (speakers are outside)", py: "Tiān hēi le, wǒmen kuài huí sùshè ___ ba.", a: "去" },
+          { zh: "他从书包里拿___一本新词典。", py: "Tā cóng shūbāo li ná ___ yì běn xīn cídiǎn.", a: "出来" },
+          { zh: "老师走进教室___，大家马上安静了。", py: "Lǎoshī zǒu jìn jiàoshì ___, dàjiā mǎshàng ānjìng le.", a: "来" },
+          { zh: "请大家站___来，我们一起唱首歌。", py: "Qǐng dàjiā zhàn ___ lái, wǒmen yìqǐ chàng shǒu gē.", a: "起" },
+          { zh: "走累了吧？我们在树下坐___来休息会儿。", py: "Zǒu lèi le ba? Wǒmen zài shù xià zuò ___ lái xiūxi huìr.", a: "下" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Spot the mistake: Golden Rule of Place",
+        instructions: "Rewrite each sentence fixing the word order mistake.",
+        items: [
+          { q: "我们回去家吧。", a: "我们回家去吧。 (location nouns like 家 must sit between the verb and 去/来)" },
+          { q: "他走进去图书馆了。", a: "他走进图书馆去了。 (图书馆 sits between 进 and 去)" },
+          { q: "请站起你来。", a: "请你站起来。 (pronouns go in front of the verb phrase)" },
+          { q: "快上车去，车要开走了！ (speaker is on the train)", a: "快上车来，车要开走了！ (use 来 because speaker is already on board)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Pay close attention to speaker perspective (come vs go) and place noun order.",
+        items: [
+          { q: "Please come in! (speaker is inside the room)", a: "请进来！" },
+          { q: "He took out his mobile phone from his coat.", a: "他从大衣里拿出了手机。" },
+          { q: "I am going back home now. (speaker is at the office)", a: "我现在回家去了。" },
+          { q: "The teacher asked the students to stand up.", a: "老师让学生们站起来。" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "duration-frequency",
+    no: "31",
+    title: "Duration & Frequency",
+    zh: "时量与动量补语",
+    level: "HSK 2",
+    skill: "Grammar",
+    minutes: 20,
+    summary: "Express how long an action lasted (duration) or how many times it occurred (frequency), and master the verb-copying pattern (学汉语学了三年).",
+    sections: [
+      {
+        type: "match",
+        title: "Duration vs Frequency vs Point in Time",
+        instructions: "Match each time phrase with what kind of concept it conveys.",
+        items: [
+          { zh: "学了两个小时", py: "xuéle liǎng ge xiǎoshí", a: "Duration (for two hours)" },
+          { zh: "去过三次", py: "qùguo sān cì", a: "Frequency (three times)" },
+          { zh: "两点钟见", py: "liǎng diǎn zhōng jiàn", a: "Point in time (at 2 o'clock)" },
+          { zh: "住了一年半", py: "zhùle yì nián bàn", a: "Duration (for a year and a half)" },
+          { zh: "看了一遍", py: "kànle yí biàn", a: "Frequency (once from start to end)" },
+          { zh: "等了一会儿", py: "děngle yíhuìr", a: "Duration (for a little while)" }
+        ]
+      },
+      {
+        type: "fill",
+        title: "Fill in the blank: Verb copying and measure words",
+        instructions: "When an action has an object, repeat the verb: Verb + Obj + Verb + 了 + Duration.",
+        bank: ["学", "看", "次", "遍", "天", "年"],
+        items: [
+          { zh: "他学汉语___了三年。", py: "Tā xué Hànyǔ ___ le sān nián.", a: "学" },
+          { zh: "我看书___了一个小时，眼睛有点儿累。", py: "Wǒ kàn shū ___ le yí ge xiǎoshí, yǎnjing yǒudiǎnr lèi.", a: "看" },
+          { zh: "这本书很有意思，我已经看了三___了。", py: "Zhè běn shū hěn yǒu yìsi, wǒ yǐjīng kànle sān ___ le.", a: "遍" },
+          { zh: "我去年去过一___上海。", py: "Wǒ qùnián qùguo yí ___ Shànghǎi.", a: "次" },
+          { zh: "我们在北京住了五___，非常喜欢那里。", py: "Wǒmen zài Běijīng zhùle wǔ ___, fēicháng xǐhuan nàlǐ.", a: "年" },
+          { zh: "他病了，在床上躺了整整两___。", py: "Tā bìng le, zài chuáng shang tǎngle zhěngzhěng liǎng ___.", a: "天" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Spot the mistake: Expressing duration and frequency",
+        instructions: "Each sentence violates Chinese duration or frequency grammar. Fix it.",
+        items: [
+          { q: "我学中文三年了。 (pattern: repeat the verb)", a: "我学中文学了三年了。 / 我学了三年中文了。" },
+          { q: "他去过中国两遍。 (遍 is for processes from beginning to end)", a: "他去过中国两次。 (use 次 for visits/events)" },
+          { q: "我游泳两个小时昨天。 (time and duration order)", a: "我昨天游了两个小时泳。 / 我昨天游泳游了两个小时。" },
+          { q: "我等了三个小时他。 (pronoun placement)", a: "我等了他三个小时。 (pronouns like 他/你 go directly after the verb, before duration)" }
+        ]
+      },
+      {
+        type: "translate",
+        title: "Translate into Chinese",
+        instructions: "Translate using duration and frequency structures.",
+        items: [
+          { q: "I have lived in Beijing for two years.", a: "我在北京住了两年。" },
+          { q: "I have been to China twice.", a: "我去过两次中国。" },
+          { q: "She practiced piano for an hour yesterday.", a: "她昨天练琴练了一个小时。 / 她昨天练了一个小时琴。" },
+          { q: "Please listen to this audio one more time.", a: "请把这段录音再听一遍。" }
+        ]
+      }
+    ]
   }
 ];

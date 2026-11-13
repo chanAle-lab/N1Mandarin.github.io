@@ -12,9 +12,9 @@ Mandarin explained from an English speaker's point of view, with tap-to-hear aud
 - **Word of the day**: a different HSK 1–2 word each day, split into initial, final and tone.
 - **01 Sounds English doesn't have**: tones, x/sh, q/ch, j/zh, ü, flat vs curled tongue, aspiration (b/p) and r. Each card has a mouth tip and minimal pairs, and you can switch the speech speed.
 - **02 Everyday phrase cards**: English prompt, flip for the Chinese (greetings, classroom, restaurant, shopping, travel, being polite).
-- **03 Where the grammar differs**: 13 ✗/✓ cards (time and place before the verb, no 是 with adjectives, no tenses, measure words, question order, 不/没, no plurals, 的 order, answering yes, 有点儿 vs 一点儿, 是……的 emphasis, and 被 passives).
+- **03 Where the grammar differs**: 15 ✗/✓ cards (time and place before the verb, no 是 with adjectives, no tenses, measure words, question order, 不/没, no plurals, 的 order, answering yes, 有点儿 vs 一点儿, 是……的 emphasis, 被 passives, directional complements, and duration with repeated verbs).
 - **04 Common English-speaker mistakes**: word-for-word translations fixed, with notes.
-- **05 Quick quiz**: 13 questions with explanations and a score.
+- **05 Quick quiz**: 15 questions with explanations and a score.
 
 Each section links to the worksheets that practise it. Edit the content in `learn.js`.
 
@@ -53,6 +53,8 @@ The worksheet library is at `#/papers` (old `#library` links redirect there).
 | 27 | The Passive with 被 “被”字句 | HSK 3 | Grammar |
 | 28 | A Bit: 有点儿 vs 一点儿 有点儿和一点儿 | HSK 2 | Grammar |
 | 29 | The 是……的 Construction “是……的”句 | HSK 2 | Grammar |
+| 30 | Directional Complements 趋向补语 | HSK 3 | Grammar |
+| 31 | Duration & Frequency 时量与动量补语 | HSK 2 | Grammar |
 
 ## HSK (3.0) toolkit
 Built from the New HSK 3.0 word lists compiled by MandarinBean.com: Level 1 (300 words, `hsk1.js`), Level 2 (200 words, `hsk2.js`) and Level 3 (500 words, `hsk3.js`). Every tool has a level switch for HSK 1, HSK 2, HSK 3 or all three. Generator links use `L=1`, `L=2`, `L=3` or `L=123` (older `L=12` links still work).
